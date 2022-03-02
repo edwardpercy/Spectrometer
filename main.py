@@ -30,16 +30,16 @@ def readADC():
 		
 	adc = adc >> 1
 		
-	
-	if cnt >= 9:
+	currResult = adc
+	# if cnt >= 9:
 		
-		currResult = result/10
-		result = 0
-		cnt = 0
+	# 	currResult = result/10
+	# 	result = 0
+	# 	cnt = 0
 		
 		
-	result += adc
-	cnt += 1	
+	# result += adc
+	# cnt += 1	
 
 class StepperHandler():
 
