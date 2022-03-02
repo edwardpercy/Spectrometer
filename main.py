@@ -76,6 +76,7 @@ class StepperHandler():
 			# Take requested number of steps
 			with open('output.txt', 'w') as f:
 				for x in range(stepsToTake):
+					readADC()
 					print("Step " + str(x) + "ADC " + str(currResult))
 					f.write(str(currResult) + "\n")
 					GPIO.output(self.StepPin, GPIO.HIGH)
