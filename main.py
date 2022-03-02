@@ -72,16 +72,25 @@ class StepperHandler():
 		# Set the direction
 		GPIO.output(self.DirectionPin, direction)
 
-		# Take requested number of steps
-		with open('output.txt', 'w') as f:
+		if (direction == self.CLOCKWISE):
+			# Take requested number of steps
+			with open('output.txt', 'w') as f:
+				for x in range(stepsToTake):
+					print("Step " + str(x) + "ADC " + str(currResult))
+					f.write(str(currResult) + "\n")
+					GPIO.output(self.StepPin, GPIO.HIGH)
+					self.CurrentStep += 1
+					sleep(self.Delay)
+					GPIO.output(self.StepPin, GPIO.LOW)
+					sleep(self.Delay)
+		else:
 			for x in range(stepsToTake):
-				print("Step " + str(x) + "ADC " + str(currResult))
-				f.write(str(currResult) + "\n")
-				GPIO.output(self.StepPin, GPIO.HIGH)
-				self.CurrentStep += 1
-				sleep(self.Delay)
-				GPIO.output(self.StepPin, GPIO.LOW)
-				sleep(self.Delay)
+					print("Step " + str(x))
+					GPIO.output(self.StepPin, GPIO.HIGH)
+					self.CurrentStep += 1
+					sleep(self.Delay)
+					GPIO.output(self.StepPin, GPIO.LOW)
+					sleep(self.Delay)
 
 # Define pins
 STEP_PIN = 16
