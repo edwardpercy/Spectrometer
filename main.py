@@ -22,7 +22,7 @@ def readADC():
 	
 	total = 0
 	
-	for x in range(10):
+	for x in range(3):
 		msg = 0b00
 		meg = ((msg << 1) + 0) << 5
 		msg = [msg, 0b00000000]
@@ -34,7 +34,7 @@ def readADC():
 			
 		adc = adc >> 1
 		total += adc
-	currResult = total/10
+	currResult = total/3
 	# if cnt >= 9:
 		
 	# 	currResult = result/10
