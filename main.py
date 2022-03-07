@@ -19,18 +19,22 @@ cnt = 0
 
 def readADC():
 	global currResult
-	msg = 0b00
-	meg = ((msg << 1) + 0) << 5
-	msg = [msg, 0b00000000]
-	received = spi.xfer2(msg)
 	
-	adc = 0
-	for n in received:
-		adc = (adc << 8) + n
+	total = 0
+	
+	for x in range(10):
+		msg = 0b00
+		meg = ((msg << 1) + 0) << 5
+		msg = [msg, 0b00000000]
+		received = spi.xfer2(msg)
 		
-	adc = adc >> 1
-		
-	currResult = adc
+		adc = 0
+		for n in received:
+			adc = (adc << 8) + n
+			
+		adc = adc >> 1
+		total += adc
+	currResult = total/10
 	# if cnt >= 9:
 		
 	# 	currResult = result/10
