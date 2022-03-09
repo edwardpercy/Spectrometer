@@ -5,7 +5,7 @@ import spidev
 import time
 import struct
 import threading
-from threading import thread
+import _thread
 
 bus = 0
 device = 0
@@ -136,8 +136,8 @@ stepperHandler = StepperHandler(STEP_PIN, DIRECTION_PIN, 0.01)
 
 
 if __name__ == "__main__":					  
-	thread (target = loop_1).start()        
-	thread (target = loop_2).start()
+	_thread (target = loop_1).start()        
+	_thread (target = loop_2).start()
 
 # Go forwards once (Towards Motor)dsa
 #stepperHandler.Step(400)
