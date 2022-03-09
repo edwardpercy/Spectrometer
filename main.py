@@ -4,6 +4,8 @@ from time import sleep
 import spidev
 import time
 import struct
+import threading
+from threading import thread
 
 bus = 0
 device = 0
@@ -16,13 +18,14 @@ spi.mode = 0b11
 currResult = 0.0
 result = 0.0
 cnt = 0
+stopFlag = False
 
 def readADC():
 	global currResult
 	
 	total = 0
 	
-	for x in range(3):
+	for x in range(100):
 		msg = 0b00
 		meg = ((msg << 1) + 0) << 5
 		msg = [msg, 0b00000000]
@@ -34,7 +37,7 @@ def readADC():
 			
 		adc = adc >> 1
 		total += adc
-	currResult = total/3
+	currResult = total/100
 	# if cnt >= 9:
 		
 	# 	currResult = result/10
@@ -78,16 +81,16 @@ class StepperHandler():
 
 		if (direction == self.CLOCKWISE):
 			# Take requested number of steps
-			with open('output.txt', 'w') as f:
-				for x in range(stepsToTake):
-					readADC()
-					print("Step " + str(x) + "ADC " + str(currResult))
-					f.write(str(currResult) + "\n")
-					GPIO.output(self.StepPin, GPIO.HIGH)
-					self.CurrentStep += 1
-					sleep(self.Delay)
-					GPIO.output(self.StepPin, GPIO.LOW)
-					sleep(self.Delay)
+			
+			for x in range(stepsToTake):
+				
+				print("Step " + str(x) + "ADC " + str(currResult))
+				
+				GPIO.output(self.StepPin, GPIO.HIGH)
+				self.CurrentStep += 1
+				sleep(self.Delay)
+				GPIO.output(self.StepPin, GPIO.LOW)
+				sleep(self.Delay)
 		else:
 			for x in range(stepsToTake):
 					print("Step " + str(x))
@@ -96,6 +99,26 @@ class StepperHandler():
 					sleep(self.Delay)
 					GPIO.output(self.StepPin, GPIO.LOW)
 					sleep(self.Delay)
+
+
+def loop_1():
+	global stopFlag
+	# Go forwards once (Towards Motor)
+	GPIO.output(RELAY_PIN, GPIO.HIGH)
+	stepperHandler.Step(1000)
+	GPIO.output(RELAY_PIN, GPIO.LOW)
+	stopFlag = True
+	# Go backwards once
+	stepperHandler.Step(1000, stepperHandler.ANTI_CLOCKWISE)
+
+def loop_2():
+	global stopFlag
+	with open('output.txt', 'w') as f:
+		while(stopFlag == False):
+			readADC()
+			f.write(str(currResult) + "\n")
+
+
 
 # Define pins
 STEP_PIN = 16
@@ -110,24 +133,15 @@ GPIO.output(RELAY_PIN, GPIO.LOW)
 # Create a new instance of our stepper class (note if you're just starting out with this you're probably better off using a delay of ~0.1)
 stepperHandler = StepperHandler(STEP_PIN, DIRECTION_PIN, 0.01)
 
-# Go forwards once (Towards Motor)
-GPIO.output(RELAY_PIN, GPIO.HIGH)
-stepperHandler.Step(1000)
-GPIO.output(RELAY_PIN, GPIO.LOW)
 
-# Go backwards once
-stepperHandler.Step(1000, stepperHandler.ANTI_CLOCKWISE)
+
+if __name__ == '__main__'					  
+	thread (target = loop_1).start()        
+	thread (target = loop_2).start()
 
 # Go forwards once (Towards Motor)dsa
 #stepperHandler.Step(400)
 
-
-for x in range (2):
-	GPIO.output(RELAY_PIN, GPIO.LOW)
-	sleep(1)
-	#GPIO.output(RELAY_PIN, GPIO.HIGH)
-	sleep(1)
-GPIO.output(RELAY_PIN, GPIO.LOW)
 
 
 
