@@ -1,11 +1,12 @@
 # System imports
+from threading import Thread
 import RPi.GPIO as GPIO
 from time import sleep
 import spidev
 import time
 import struct
 import threading
-import _thread
+
 
 bus = 0
 device = 0
@@ -136,8 +137,8 @@ stepperHandler = StepperHandler(STEP_PIN, DIRECTION_PIN, 0.01)
 
 
 if __name__ == "__main__":					  
-	_thread (target = loop_1).start()        
-	_thread (target = loop_2).start()
+	Thread (target = loop_1).start()        
+	Thread (target = loop_2).start()
 
 # Go forwards once (Towards Motor)dsa
 #stepperHandler.Step(400)
