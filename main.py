@@ -135,7 +135,7 @@ stepperHandler = StepperHandler(STEP_PIN, DIRECTION_PIN, 0.01)
 
 
 
-if __name__ == '__main__'					  
+if __name__ == "__main__":					  
 	thread (target = loop_1).start()        
 	thread (target = loop_2).start()
 
