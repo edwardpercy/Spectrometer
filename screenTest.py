@@ -1,6 +1,8 @@
-from papirus import PapirusText
+from papirus import PapirusComposite
 
 
-text = PapirusText(90)
+textNImg = PapirusComposite()
 
-text.AddText("hello world", 10, 10, Id="Start" )
+# Write text to the screen at selected point, with an Id
+# Nothing will show on the screen
+textNImg.AddText("hello world", 10, 10, Id="Start" )
