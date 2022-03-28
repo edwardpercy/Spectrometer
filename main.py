@@ -1,53 +1,6 @@
 # System imports
-from threading import Thread
 import RPi.GPIO as GPIO
 from time import sleep
-import spidev
-import time
-import struct
-import threading
-
-
-bus = 0
-device = 0
-spi = spidev.SpiDev()
-spi.open(bus, device)
-
-spi.max_speed_hz = 1000
-spi.mode = 0b11
-
-currResult = 0.0
-result = 0.0
-cnt = 0
-stopFlag = False
-
-def readADC():
-	global currResult
-	
-	total = 0
-	
-	for x in range(3):
-		msg = 0b00
-		meg = ((msg << 1) + 0) << 5
-		msg = [msg, 0b00000000]
-		received = spi.xfer2(msg)
-		
-		adc = 0
-		for n in received:
-			adc = (adc << 8) + n
-			
-		adc = adc >> 1
-		total += adc
-	currResult = total/3
-	# if cnt >= 9:
-		
-	# 	currResult = result/10
-	# 	result = 0
-	# 	cnt = 0
-		
-		
-	# result += adc
-	# cnt += 1	
 
 class StepperHandler():
 
@@ -59,6 +12,7 @@ class StepperHandler():
 		self.CLOCKWISE = self.__CLOCKWISE
 		self.ANTI_CLOCKWISE = self.__ANTI_CLOCKWISE
 		self.StepPin = stepPin
+		self.SwitchPin = 5
 		self.DirectionPin = directionPin
 		self.Delay = delay
 		self.RevolutionSteps = stepsPerRevolution
@@ -70,63 +24,42 @@ class StepperHandler():
 		GPIO.setwarnings(False)
 		GPIO.setup(self.StepPin, GPIO.OUT)
 		GPIO.setup(self.DirectionPin, GPIO.OUT)
+		GPIO.setup(self.SwitchPin, GPIO.IN)
 
 	def Step(self, stepsToTake, direction = __CLOCKWISE):
-		global currResult
-
-		print("Step Pin: " + str(self.StepPin) + " Direction Pin: " + str(self.DirectionPin) + " Delay: " + str(self.Delay))
-		print("Taking " + str(stepsToTake) + " steps.")
 
 		# Set the direction
 		GPIO.output(self.DirectionPin, direction)
 
-		if (direction == self.CLOCKWISE):
-			# Take requested number of steps
-			
-			for x in range(stepsToTake):
-				
-				print("Step " + str(x) + "ADC " + str(currResult))
-				
+		# Take requested number of steps
+		for x in range(stepsToTake):
+			if (GPIO.input(self.SwitchPin) == GPIO.HIGH or direction == self.ANTI_CLOCKWISE):
 				GPIO.output(self.StepPin, GPIO.HIGH)
 				self.CurrentStep += 1
 				sleep(self.Delay)
 				GPIO.output(self.StepPin, GPIO.LOW)
 				sleep(self.Delay)
-		else:
-			for x in range(stepsToTake):
-					print("Step " + str(x))
-					GPIO.output(self.StepPin, GPIO.HIGH)
-					self.CurrentStep += 1
-					sleep(self.Delay)
-					GPIO.output(self.StepPin, GPIO.LOW)
-					sleep(self.Delay)
+			
+	def home(self, direction = __CLOCKWISE):
+	
+		# Set the direction
+		GPIO.output(self.DirectionPin, direction)
 
-
-def loop_1():
-	global stopFlag
-	# Go forwards once (Towards Motor)
-	GPIO.output(RELAY_PIN, GPIO.HIGH)
-	stepperHandler.Step(1000)
-	GPIO.output(RELAY_PIN, GPIO.LOW)
-	stopFlag = True
-	# Go backwards once
-	stepperHandler.Step(1000, stepperHandler.ANTI_CLOCKWISE)
-
-def loop_2():
-	global stopFlag
-	with open('output.txt', 'w') as f:
-		while(stopFlag == False):
-			readADC()
-			f.write(str(currResult) + "\n")
-
-
+		# Take requested number of steps
+		while (GPIO.input(self.SwitchPin) == GPIO.HIGH):
+			GPIO.output(self.StepPin, GPIO.HIGH)
+			self.CurrentStep += 1
+			sleep(self.Delay)
+			GPIO.output(self.StepPin, GPIO.LOW)
+			sleep(self.Delay)
+		stepperHandler.Step(10, stepperHandler.ANTI_CLOCKWISE)
 
 # Define pins
-STEP_PIN = 16
-DIRECTION_PIN = 21
+STEP_PIN = 19
+DIRECTION_PIN = 13
 
 # Lamp control
-RELAY_PIN = 20
+RELAY_PIN = 6
 GPIO.setmode(GPIO.BCM)
 GPIO.setup(RELAY_PIN, GPIO.OUT)
 GPIO.output(RELAY_PIN, GPIO.LOW)
@@ -134,15 +67,22 @@ GPIO.output(RELAY_PIN, GPIO.LOW)
 # Create a new instance of our stepper class (note if you're just starting out with this you're probably better off using a delay of ~0.1)
 stepperHandler = StepperHandler(STEP_PIN, DIRECTION_PIN, 0.01)
 
+stepperHandler.home()
 
+# Go backwards once
+GPIO.output(RELAY_PIN, GPIO.HIGH)
+stepperHandler.Step(1000, stepperHandler.ANTI_CLOCKWISE)
+GPIO.output(RELAY_PIN, GPIO.LOW)
 
-if __name__ == "__main__":					  
-	Thread (target = loop_1).start()        
-	Thread (target = loop_2).start()
+stepperHandler.home()
+
+# Go forwards once (Towards Motor)
+#GPIO.output(RELAY_PIN, GPIO.HIGH)
+#stepperHandler.Step(1000)
+#GPIO.output(RELAY_PIN, GPIO.LOW)
+
 
 # Go forwards once (Towards Motor)dsa
 #stepperHandler.Step(400)
-
-
 
 

@@ -9,7 +9,7 @@ device = 1
 spi = spidev.SpiDev()
 spi.open(bus, device)
 
-spi.max_speed_hz = 1000
+spi.max_speed_hz = 100000
 spi.mode = 0b11
 
 result = 0.0
@@ -38,6 +38,6 @@ while(True):
 	result += adc
 	cnt += 1	
 
-	time.sleep(0.01)
+	time.sleep(0.001)
 	
 	

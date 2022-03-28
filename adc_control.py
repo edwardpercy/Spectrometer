@@ -1,21 +1,25 @@
 #!/usr/bin/python
-
+import RPi.GPIO as GPIO
 import spidev
 import time
 import struct
 
+RELAY_PIN = 20
+GPIO.setup(RELAY_PIN, GPIO.IN) 
+
 bus = 0
-device = 0
+device = 1
 spi = spidev.SpiDev()
 spi.open(bus, device)
 
-spi.max_speed_hz = 1000
+spi.max_speed_hz = 100000
 spi.mode = 0b11
 
 result = 0.0
 cnt = 0
 
-while(True):
+def readADC():
+
 	msg = 0b00
 	meg = ((msg << 1) + 0) << 5
 	msg = [msg, 0b00000000]
@@ -26,17 +30,14 @@ while(True):
 		adc = (adc << 8) + n
 		
 	adc = adc >> 1
-		
-	
-	if cnt >= 9:
-		
-		print (result/10)
-		result = 0
-		cnt = 0
-		
-		
-	result += adc
-	cnt += 1	
 
-	
-	
+	return adc
+
+
+while(True):
+	state = GPIO.input(RELAY_PIN)
+	if state == True:
+		with open('output.txt', 'w') as f:
+			while(GPIO.input(RELAY_PIN) == GPIO.HIGH):
+				f.write(str(readADC()) + "\n")
+				time.sleep(0.001)
