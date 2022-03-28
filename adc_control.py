@@ -34,6 +34,8 @@ def readADC():
 	return adc
 
 
+GPIO.setmode(GPIO.BCM)
+
 while(True):
 	state = GPIO.input(RELAY_PIN)
 	if state == GPIO.HIGH:
