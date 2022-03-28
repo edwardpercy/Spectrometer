@@ -5,7 +5,7 @@ import time
 import struct
 
 RELAY_PIN = 20
-GPIO.setup(RELAY_PIN, GPIO.IN) 
+
 
 bus = 0
 device = 1
