@@ -32,7 +32,7 @@ class StreamingMovingAverage:
         return float(self.sum) / len(self.values)
 
 
-averageValue = StreamingMovingAverage
+averageValue = StreamingMovingAverage()
 def readADC():
 
 	msg = 0b00
