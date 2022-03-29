@@ -45,7 +45,7 @@ class StepperHandler():
 		# Set the direction
 		GPIO.output(self.DirectionPin, direction)
 
-		stepperHandler.Step(10, stepperHandler.CLOCKWISE)
+		stepperHandler.Step(30, stepperHandler.CLOCKWISE)
 
 		# Take requested number of steps
 		while (GPIO.input(self.SwitchPin) == GPIO.HIGH):
@@ -74,7 +74,7 @@ stepperHandler.home()
 # Go backwards once
 #GPIO.output(RELAY_PIN, GPIO.HIGH)
 sleep(1.5)
-stepperHandler.Step(1450, stepperHandler.ANTI_CLOCKWISE)
+stepperHandler.Step(1350, stepperHandler.ANTI_CLOCKWISE)
 GPIO.output(RELAY_PIN, GPIO.LOW)
 
 stepperHandler.home()
