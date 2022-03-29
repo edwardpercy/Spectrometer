@@ -13,12 +13,12 @@ def fileToList(filename):
                 temp.append(float(line.split()[0]))
     return temp
 
-# def normalise(input):
-#     output = np.array(input, dtype=float)
-#     output = preprocessing.normalize([output])
-#     output = output[0]
-#     output = moving_average(output, n=10)
-#     return output
+def normalise(input):
+    output = np.array(input, dtype=float)
+    output = preprocessing.normalize([output])
+    output = output[0]
+    #output = moving_average(output, n=10)
+    return output
 
 # def moving_average(a, n=10) :
 #     ret = np.cumsum(a, dtype=float)
@@ -36,16 +36,18 @@ def fileToList(filename):
 #canal2 = normalise(fileToList('canalWater_USB2F035981__0__10.txt', False))
 
 #hal = normalise(fileToList('canalWater_USB2F035981__0__3.txt', True))
-results = fileToList('output.txt')
+red = normalise(fileToList('red.txt'))
+cuvette = normalise(fileToList('cuvette.txt'))
 
 
 plt.xlabel('Wavelengths', fontsize = 15, style='italic')
 plt.ylabel('Relative Intensities', fontsize = 15, style='italic')
 
-ttl = plt.title('Results Test', fontsize = 20)
+ttl = plt.title('Spectrum of red dye and empty cuvette', fontsize = 20)
 
 
-plt.plot(results, color="red")
+plt.plot(red, color="red")
+plt.plot(cuvette, color="blue")
 
 
 #plt.plot(wavelengths, red, color="red")
@@ -58,7 +60,7 @@ plt.plot(results, color="red")
 #plt.plot(wavelengths, canal, color="gold")
 #plt.plot(wavelengths, canal2, color="red")
 #plt.yscale('log')
-#plt.legend(["USB2000+", "Project Spectrometer"])
+plt.legend(["Red Dye", "Cuvette"])
 #plt.xscale('log')
 #plt.gca().invert_xaxis()
 plt.grid('on')
