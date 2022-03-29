@@ -72,7 +72,7 @@ stepperHandler.home()
 # Go backwards once
 GPIO.output(RELAY_PIN, GPIO.HIGH)
 sleep(1)
-stepperHandler.Step(1000, stepperHandler.ANTI_CLOCKWISE)
+stepperHandler.Step(1200, stepperHandler.ANTI_CLOCKWISE)
 GPIO.output(RELAY_PIN, GPIO.LOW)
 
 stepperHandler.home()
