@@ -72,7 +72,7 @@ stepperHandler = StepperHandler(STEP_PIN, DIRECTION_PIN, 0.01)
 stepperHandler.home()
 
 # Go backwards once
-#GPIO.output(RELAY_PIN, GPIO.HIGH)
+GPIO.output(RELAY_PIN, GPIO.HIGH)
 sleep(1.5)
 stepperHandler.Step(1300, stepperHandler.ANTI_CLOCKWISE)
 GPIO.output(RELAY_PIN, GPIO.LOW)
