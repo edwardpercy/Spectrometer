@@ -18,6 +18,21 @@ spi.mode = 0b11
 result = 0.0
 cnt = 0
 
+class StreamingMovingAverage:
+    def __init__(self, window_size):
+        self.window_size = window_size
+        self.values = []
+        self.sum = 0
+
+    def process(self, value):
+        self.values.append(value)
+        self.sum += value
+        if len(self.values) > self.window_size:
+            self.sum -= self.values.pop(0)
+        return float(self.sum) / len(self.values)
+
+
+averageValue = StreamingMovingAverage
 def readADC():
 
 	msg = 0b00
@@ -31,7 +46,7 @@ def readADC():
 		
 	adc = adc >> 1
 
-	return adc
+	return averageValue.process(adc)
 
 
 GPIO.setmode(GPIO.BCM)
@@ -43,4 +58,4 @@ while(True):
 		with open('output.txt', 'w') as f:
 			while(GPIO.input(RELAY_PIN) == GPIO.HIGH):
 				f.write(str(readADC()) + "\n")
-				time.sleep(0.001)
+				time.sleep(0.0001)
