@@ -56,6 +56,7 @@ while(True):
 	state = GPIO.input(RELAY_PIN)
 	if state == GPIO.HIGH:
 		with open('output.txt', 'w') as f:
+			time.sleep(1.4)
 			while(GPIO.input(RELAY_PIN) == GPIO.HIGH):
 				f.write(str(readADC()) + "\n")
 				time.sleep(0.0001)
