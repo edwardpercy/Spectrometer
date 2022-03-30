@@ -53,11 +53,11 @@ class StreamingMovingAverage:
         return float(self.sum) / len(self.values)
 
 def normalise(input):
-    output = np.array(input, dtype=float)
-	if (len(output) > 0):
-    	output = output/np.linalg.norm(output)
-    #output = moving_average(output, n=10)
-    return output
+	output = np.array(input, dtype=float)
+	if (len(output) > 100):
+		output = output/np.linalg.norm(output)
+	#output = moving_average(output, n=10)
+	return output
 
 averageValue = StreamingMovingAverage(500)
 def readADC():
