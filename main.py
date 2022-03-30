@@ -70,7 +70,8 @@ def normalise(input):
     return output
     
 
-averageValue = StreamingMovingAverage(100)
+averageValue = StreamingMovingAverage(500)
+sampleSpeed = 0.00001
 
 def readADC():
 
@@ -156,7 +157,7 @@ def capture_routine():
 		while(GPIO.input(RELAY_PIN) == GPIO.HIGH):
 			val = readADC()
 			f.write(str(val) + "\n")
-			time.sleep(0.0001)
+			time.sleep(sampleSpeed)
 			count += 1
 			if (count % 250 == 0):
 				results.append(val)
