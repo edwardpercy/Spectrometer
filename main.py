@@ -170,10 +170,10 @@ def capture_routine():
 	elif (len(results) < width):
 		for x in range(width - len(results)):
 			results.append(0)
-
+	print(results)
 	
 	normResults = normalise(results)
-
+	print(normResults)
 	xVal = 0
 	for r in normResults:
 		adjR = (r * height)
