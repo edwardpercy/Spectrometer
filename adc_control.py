@@ -3,9 +3,28 @@ import RPi.GPIO as GPIO
 import spidev
 import time
 import struct
+from papirus import Papirus
+import time
+from PIL import Image
+from PIL import ImageDraw
+from PIL import ImageFont
+import numpy as np
+from sklearn import preprocessing
+
+WHITE = 1
+BLACK = 0
+FONT_FILE = '/usr/share/fonts/truetype/freefont/FreeMonoBold.ttf'
+
+papirus = Papirus(rotation = 0)
+papirus.clear()
+image = Image.new('1', papirus.size, WHITE)
+width,height = image.size
+font_size = int((width - 4)/(8*1.65))
+font = ImageFont.truetype(FONT_FILE, font_size)
+
+draw = ImageDraw.Draw(image)
 
 RELAY_PIN = 20
-
 
 bus = 0
 device = 1
@@ -31,6 +50,12 @@ class StreamingMovingAverage:
             self.sum -= self.values.pop(0)
         return float(self.sum) / len(self.values)
 
+def normalise(input):
+    output = np.array(input, dtype=float)
+    output = preprocessing.normalize([output])
+    output = output[0]
+    #output = moving_average(output, n=10)
+    return output
 
 averageValue = StreamingMovingAverage(500)
 def readADC():
@@ -49,14 +74,52 @@ def readADC():
 	return averageValue.process(adc)
 
 
+draw.text((((width/2) - 9),0), "Photo Spectrometry", fill=BLACK, font = font)
+
+papirus.display(image)
+papirus.update()
+
 GPIO.setmode(GPIO.BCM)
 GPIO.setup(RELAY_PIN, GPIO.IN) 
+
 
 while(True):
 	state = GPIO.input(RELAY_PIN)
 	if state == GPIO.HIGH:
+		count = 0
+		results = []
+		draw.text((((width/2) - 6),20), "Scanning ...", fill=BLACK, font = font)
+		papirus.display(image)
+		papirus.partial_update()
+
 		with open('output.txt', 'w') as f:
-			time.sleep(1.4)
+			time.sleep(1.3)
 			while(GPIO.input(RELAY_PIN) == GPIO.HIGH):
-				f.write(str(readADC()) + "\n")
+				val = readADC()
+				f.write(str(val) + "\n")
 				time.sleep(0.0001)
+				count += 1
+				if (count % 50000 == 0):
+					results.append(val)
+
+
+	papirus.clear()
+	draw.text((((width/2) - 9),8), "Spectral Results", fill=BLACK, font = font)
+
+	if (len(results) > width):
+		for x in range(len(results) - width):
+			del[-x]
+	elif (len(results) < width):
+		for x in range(width - len(results)):
+			results.append(0)
+
+	normResults = normalise(results)
+
+	xVal = 0
+	for r in results:
+		adjR = r * (height - 8)
+		draw.rectangle((xVal,adjR,xVal+2,adjR+2), fill=BLACK, outline=BLACK)
+		xVal += 1
+
+	papirus.display(image)
+	papirus.update()
