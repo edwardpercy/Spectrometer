@@ -179,7 +179,7 @@ def capture_routine():
 
 	xVal = 0
 	for r in normResults:
-		adjR = (r * height)
+		adjR = height - (r * height)
 		draw.rectangle((xVal,adjR,xVal-1,adjR-1), fill=BLACK, outline=BLACK)
 		xVal += 1
 	
@@ -222,4 +222,3 @@ stepperProcess.start()
 captureProcess.join()
 stepperProcess.join()
 
-GPIO.cleanup()
