@@ -9,7 +9,7 @@ from PIL import Image
 from PIL import ImageDraw
 from PIL import ImageFont
 import numpy as np
-from sklearn import preprocessing
+
 
 WHITE = 1
 BLACK = 0
@@ -52,8 +52,7 @@ class StreamingMovingAverage:
 
 def normalise(input):
     output = np.array(input, dtype=float)
-    output = preprocessing.normalize([output])
-    output = output[0]
+    output = output/np.linalg.norm(output)
     #output = moving_average(output, n=10)
     return output
 
