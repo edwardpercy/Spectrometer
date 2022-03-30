@@ -75,6 +75,7 @@ stepperHandler.home()
 
 os.system('./home/pi/Desktop/Spectrometer/launch.sh')
 
+
 sleep(2)
 # Go backwards once
 GPIO.output(RELAY_PIN, GPIO.HIGH)
