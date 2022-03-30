@@ -108,7 +108,7 @@ while(True):
 
 		if (len(results) > width):
 			for x in range(len(results) - width):
-				del[-x]
+				del results[-x]
 		elif (len(results) < width):
 			for x in range(width - len(results)):
 				results.append(0)
