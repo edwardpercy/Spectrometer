@@ -102,7 +102,7 @@ while(True):
 				f.write(str(val) + "\n")
 				time.sleep(0.0001)
 				count += 1
-				if (count % 50000 == 0):
+				if (count % 5000 == 0):
 					results.append(val)
 
 		print(results)
