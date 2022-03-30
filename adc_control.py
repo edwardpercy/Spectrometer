@@ -61,7 +61,7 @@ def normalise(input):
 	#output = moving_average(output, n=10)
 	return output
 
-averageValue = StreamingMovingAverage(500)
+
 def readADC():
 
 	msg = 0b00
@@ -77,16 +77,12 @@ def readADC():
 
 	return averageValue.process(adc)
 
-GPIO.setmode(GPIO.BCM)
-GPIO.setup(RELAY_PIN, GPIO.IN) 
-
+averageValue = StreamingMovingAverage(500)
 draw.text((((width/2) - (9*11)),0), "Photo Spectrometry", fill=BLACK, font = font)
 
 papirus.display(image)
 papirus.update()
 
-
-time.sleep(4)
 
 exitFlag = False
 while(exitFlag == False):
