@@ -124,7 +124,7 @@ while(True):
 
 		xVal = 0
 		for r in normResults:
-			adjR = height - (r * (height - 8))
+			adjR = (r * (height - 8))
 			draw.rectangle((xVal,adjR,xVal+1,adjR+1), fill=BLACK, outline=BLACK)
 			xVal += 1
 		
