@@ -177,7 +177,7 @@ def capture_routine():
 	xVal = 0
 	for r in normResults:
 		adjR = (r * height)
-		draw.rectangle((xVal,adjR,xVal+1,adjR+1), fill=BLACK, outline=BLACK)
+		draw.rectangle((xVal,adjR,xVal-1,adjR-1), fill=BLACK, outline=BLACK)
 		xVal += 1
 	
 	papirus.display(image)
@@ -192,6 +192,9 @@ draw.text((((width/2) - (9*11)),0), "Photo Spectrometry", fill=BLACK, font = fon
 papirus.display(image)
 papirus.update()
 
+draw.text((((width/2) - (7*11)),20), "Homing Stepper", fill=BLACK, font = font)
+papirus.display(image)
+papirus.partial_update()
 
 # Create a new instance of our stepper class (note if you're just starting out with this you're probably better off using a delay of ~0.1)
 stepperHandler = StepperHandler(STEP_PIN, DIRECTION_PIN, 0.01)
@@ -199,7 +202,7 @@ stepperHandler.Step(100, stepperHandler.ANTI_CLOCKWISE)
 stepperHandler.home()
 
 
-draw.text((((width/2) - (6*11)),20), "Scanning ...", fill=BLACK, font = font)
+draw.text((((width/2) - (6*11)),60), "Scanning ...", fill=BLACK, font = font)
 papirus.display(image)
 papirus.partial_update()
 
