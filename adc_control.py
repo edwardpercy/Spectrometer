@@ -86,6 +86,8 @@ papirus.update()
 GPIO.setmode(GPIO.BCM)
 GPIO.setup(RELAY_PIN, GPIO.IN) 
 
+time.sleep(1)
+
 exitFlag = False
 while(exitFlag == False):
 
