@@ -54,7 +54,8 @@ class StreamingMovingAverage:
 
 def normalise(input):
     output = np.array(input, dtype=float)
-    output = output/np.linalg.norm(output)
+	if (len(output) > 0):
+    	output = output/np.linalg.norm(output)
     #output = moving_average(output, n=10)
     return output
 
