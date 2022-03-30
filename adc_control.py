@@ -26,6 +26,8 @@ draw = ImageDraw.Draw(image)
 
 RELAY_PIN = 6
 
+
+
 bus = 0
 device = 1
 spi = spidev.SpiDev()
