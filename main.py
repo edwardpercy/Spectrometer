@@ -176,7 +176,7 @@ def capture_routine():
 
 	xVal = 0
 	for r in normResults:
-		adjR = (height+ (11*8)) - (r * height)
+		adjR = (height) - (r * (height- (11*8)))
 		draw.rectangle((xVal,adjR,xVal+1,adjR+1), fill=BLACK, outline=BLACK)
 		xVal += 1
 	
