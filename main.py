@@ -1,6 +1,6 @@
 # System imports
 import RPi.GPIO as GPIO
-import subprocess, sys
+import os
 from time import sleep
 
 class StepperHandler():
@@ -73,7 +73,7 @@ stepperHandler = StepperHandler(STEP_PIN, DIRECTION_PIN, 0.01)
 stepperHandler.Step(100, stepperHandler.ANTI_CLOCKWISE)
 stepperHandler.home()
 
-result = subprocess.call("python /home/pi/Desktop/Spectrometer/adc_control.py")
+os.system('./launch.sh')
 
 sleep(2)
 # Go backwards once
