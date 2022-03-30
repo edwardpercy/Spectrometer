@@ -24,7 +24,7 @@ font = ImageFont.truetype(FONT_FILE, font_size)
 
 draw = ImageDraw.Draw(image)
 
-RELAY_PIN = 20
+RELAY_PIN = 6
 
 bus = 0
 device = 1
