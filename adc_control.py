@@ -78,10 +78,7 @@ def readADC():
 	return averageValue.process(adc)
 
 GPIO.setmode(GPIO.BCM)
-GPIO.setup(RELAY_PIN, GPIO.OUT) 
-GPIO.output(RELAY_PIN, GPIO.LOW)
-
-GPIO.setup(RELAY_PIN, GPIO.IN)
+GPIO.setup(RELAY_PIN, GPIO.IN) 
 
 draw.text((((width/2) - (9*11)),0), "Photo Spectrometry", fill=BLACK, font = font)
 
@@ -89,7 +86,7 @@ papirus.display(image)
 papirus.update()
 
 
-time.sleep(6)
+time.sleep(4)
 
 exitFlag = False
 while(exitFlag == False):
