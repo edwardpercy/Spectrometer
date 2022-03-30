@@ -85,6 +85,7 @@ GPIO.setup(RELAY_PIN, GPIO.IN)
 while(True):
 	state = GPIO.input(RELAY_PIN)
 	if state == GPIO.HIGH:
+		print("State high")
 		count = 0
 		results = []
 		draw.text((((width/2) - (6*11)),20), "Scanning ...", fill=BLACK, font = font)
