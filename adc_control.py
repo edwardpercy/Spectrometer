@@ -89,7 +89,7 @@ papirus.display(image)
 papirus.update()
 
 
-time.sleep(2)
+time.sleep(6)
 
 exitFlag = False
 while(exitFlag == False):

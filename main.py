@@ -64,13 +64,15 @@ DIRECTION_PIN = 13
 # Lamp control
 RELAY_PIN = 6
 
+os.system('./launch.sh')
+
+sleep(10)
 # Create a new instance of our stepper class (note if you're just starting out with this you're probably better off using a delay of ~0.1)
 stepperHandler = StepperHandler(STEP_PIN, DIRECTION_PIN, 0.01)
 stepperHandler.Step(100, stepperHandler.ANTI_CLOCKWISE)
 stepperHandler.home()
 
-os.system('./launch.sh')
-sleep(2)
+
 GPIO.setmode(GPIO.BCM)
 GPIO.setup(RELAY_PIN, GPIO.OUT)
 GPIO.output(RELAY_PIN, GPIO.LOW)
