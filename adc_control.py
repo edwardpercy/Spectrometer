@@ -105,7 +105,7 @@ while(True):
 				if (count % 50000 == 0):
 					results.append(val)
 
-	
+		print(results)
 		papirus.clear()
 		draw.rectangle((0, 0, width, height), fill=WHITE, outline=BLACK)
 		papirus.update()
@@ -119,7 +119,7 @@ while(True):
 			for x in range(width - len(results)):
 				results.append(0)
 
-		print(results)
+		
 		normResults = normalise(results)
 
 		xVal = 0
