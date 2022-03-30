@@ -83,8 +83,8 @@ GPIO.setup(RELAY_PIN, GPIO.IN)
 
 
 while(True):
-	state = GPIO.input(RELAY_PIN)
-	if state == GPIO.HIGH:
+
+	if GPIO.input(RELAY_PIN) == GPIO.HIGH:
 		print("State high")
 		count = 0
 		results = []
@@ -102,7 +102,7 @@ while(True):
 				if (count % 50000 == 0):
 					results.append(val)
 
-
+		print("State low")
 		papirus.clear()
 		draw.text((((width/2) - (9*11)),8), "Spectral Results", fill=BLACK, font = font)
 
