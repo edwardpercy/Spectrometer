@@ -73,7 +73,7 @@ def readADC():
 	return averageValue.process(adc)
 
 
-draw.text((((width/2) - 9),0), "Photo Spectrometry", fill=BLACK, font = font)
+draw.text((((width/2) - (9*10)),0), "Photo Spectrometry", fill=BLACK, font = font)
 
 papirus.display(image)
 papirus.update()
@@ -87,7 +87,7 @@ while(True):
 	if state == GPIO.HIGH:
 		count = 0
 		results = []
-		draw.text((((width/2) - 6),20), "Scanning ...", fill=BLACK, font = font)
+		draw.text((((width/2) - (6*10)),20), "Scanning ...", fill=BLACK, font = font)
 		papirus.display(image)
 		papirus.partial_update()
 
@@ -103,7 +103,7 @@ while(True):
 
 
 		papirus.clear()
-		draw.text((((width/2) - 9),8), "Spectral Results", fill=BLACK, font = font)
+		draw.text((((width/2) - (9*10)),8), "Spectral Results", fill=BLACK, font = font)
 
 		if (len(results) > width):
 			for x in range(len(results) - width):
