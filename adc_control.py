@@ -83,43 +83,44 @@ GPIO.setup(RELAY_PIN, GPIO.IN)
 
 
 while(True):
+	print( GPIO.input(RELAY_PIN))
+	time.sleep(1)
+	# if GPIO.input(RELAY_PIN) == GPIO.HIGH:
+	# 	print("State high")
+	# 	count = 0
+	# 	results = []
+	# 	draw.text((((width/2) - (6*11)),20), "Scanning ...", fill=BLACK, font = font)
+	# 	papirus.display(image)
+	# 	papirus.partial_update()
 
-	if GPIO.input(RELAY_PIN) == GPIO.HIGH:
-		print("State high")
-		count = 0
-		results = []
-		draw.text((((width/2) - (6*11)),20), "Scanning ...", fill=BLACK, font = font)
-		papirus.display(image)
-		papirus.partial_update()
+	# 	with open('output.txt', 'w') as f:
+	# 		time.sleep(1.3)
+	# 		while(GPIO.input(RELAY_PIN) == GPIO.HIGH):
+	# 			val = readADC()
+	# 			f.write(str(val) + "\n")
+	# 			time.sleep(0.0001)
+	# 			count += 1
+	# 			if (count % 50000 == 0):
+	# 				results.append(val)
 
-		with open('output.txt', 'w') as f:
-			time.sleep(1.3)
-			while(GPIO.input(RELAY_PIN) == GPIO.HIGH):
-				val = readADC()
-				f.write(str(val) + "\n")
-				time.sleep(0.0001)
-				count += 1
-				if (count % 50000 == 0):
-					results.append(val)
+	# 	print("State low")
+	# 	papirus.clear()
+	# 	draw.text((((width/2) - (9*11)),8), "Spectral Results", fill=BLACK, font = font)
 
-		print("State low")
-		papirus.clear()
-		draw.text((((width/2) - (9*11)),8), "Spectral Results", fill=BLACK, font = font)
+	# 	if (len(results) > width):
+	# 		for x in range(len(results) - width):
+	# 			del results[-x]
+	# 	elif (len(results) < width):
+	# 		for x in range(width - len(results)):
+	# 			results.append(0)
 
-		if (len(results) > width):
-			for x in range(len(results) - width):
-				del results[-x]
-		elif (len(results) < width):
-			for x in range(width - len(results)):
-				results.append(0)
+	# 	normResults = normalise(results)
 
-		normResults = normalise(results)
+	# 	xVal = 0
+	# 	for r in results:
+	# 		adjR = r * (height - 8)
+	# 		draw.rectangle((xVal,adjR,xVal+2,adjR+2), fill=BLACK, outline=BLACK)
+	# 		xVal += 1
 
-		xVal = 0
-		for r in results:
-			adjR = r * (height - 8)
-			draw.rectangle((xVal,adjR,xVal+2,adjR+2), fill=BLACK, outline=BLACK)
-			xVal += 1
-
-		papirus.display(image)
-		papirus.update()
+	# 	papirus.display(image)
+	# 	papirus.update()
