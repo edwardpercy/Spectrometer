@@ -73,7 +73,7 @@ stepperHandler = StepperHandler(STEP_PIN, DIRECTION_PIN, 0.01)
 stepperHandler.Step(100, stepperHandler.ANTI_CLOCKWISE)
 stepperHandler.home()
 
-result = subprocess.run([sys.executable, "python adc_control.py"])
+result = subprocess.call("python adc_control.py")
 
 sleep(2)
 # Go backwards once
