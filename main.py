@@ -70,7 +70,7 @@ def normalise(input):
     return output
     
 
-averageValue = StreamingMovingAverage(100)
+averageValue = StreamingMovingAverage(250)
 sampleSpeed = 0.000001
 
 def readADC():
