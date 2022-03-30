@@ -179,7 +179,7 @@ def capture_routine():
 
 	xVal = 0
 	for r in normResults:
-		adjR = (height - (r * height)) + (40)
+		adjR = ((height-40) - (r * (height-40))) + (40)
 		draw.rectangle((xVal,adjR,xVal-1,adjR-1), fill=BLACK, outline=BLACK)
 		xVal += 1
 	
