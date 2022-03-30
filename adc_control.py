@@ -88,7 +88,7 @@ GPIO.setup(RELAY_PIN, GPIO.IN)
 while(True):
 
 	if GPIO.input(RELAY_PIN) == GPIO.HIGH:
-		print("HIGH")
+
 		count = 0
 		results = []
 		draw.text((((width/2) - (6*11)),20), "Scanning ...", fill=BLACK, font = font)
@@ -96,7 +96,7 @@ while(True):
 		papirus.partial_update()
 
 		with open('output.txt', 'w') as f:
-			time.sleep(1.3)
+			#time.sleep(1.3)
 			while(GPIO.input(RELAY_PIN) == GPIO.HIGH):
 				val = readADC()
 				f.write(str(val) + "\n")
@@ -105,7 +105,7 @@ while(True):
 				if (count % 500 == 0):
 					results.append(val)
 
-		print(results)
+	
 		papirus.clear()
 		draw.rectangle((0, 0, width, height), fill=WHITE, outline=BLACK)
 		papirus.update()
@@ -121,12 +121,12 @@ while(True):
 
 		
 		normResults = normalise(results)
-		print(normResults)
+
 		xVal = 0
 		for r in normResults:
 			adjR = height- (r * (height - 8))
 			draw.rectangle((xVal,adjR,xVal+2,adjR+2), fill=BLACK, outline=BLACK)
 			xVal += 1
-		time.sleep(0.5)
+		
 		papirus.display(image)
 		papirus.partial_update()
