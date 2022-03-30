@@ -86,10 +86,11 @@ papirus.update()
 GPIO.setmode(GPIO.BCM)
 GPIO.setup(RELAY_PIN, GPIO.IN) 
 
-while(True):
+exitFlag = False
+while(exitFlag == False):
 
 	if GPIO.input(RELAY_PIN) == GPIO.HIGH:
-
+		exitFlag = True
 		count = 0
 		results = []
 		draw.text((((width/2) - (6*11)),20), "Scanning ...", fill=BLACK, font = font)

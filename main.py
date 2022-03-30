@@ -1,5 +1,6 @@
 # System imports
 import RPi.GPIO as GPIO
+import os
 from time import sleep
 
 class StepperHandler():
@@ -71,7 +72,8 @@ stepperHandler = StepperHandler(STEP_PIN, DIRECTION_PIN, 0.01)
 
 stepperHandler.Step(100, stepperHandler.ANTI_CLOCKWISE)
 stepperHandler.home()
-
+os.system('adc_control.py')
+sleep(2)
 # Go backwards once
 GPIO.output(RELAY_PIN, GPIO.HIGH)
 sleep(1.5)
