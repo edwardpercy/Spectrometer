@@ -1,4 +1,5 @@
 #!/usr/bin/python
+from cv2 import norm
 import RPi.GPIO as GPIO
 import spidev
 import time
@@ -102,7 +103,7 @@ while(True):
 				f.write(str(val) + "\n")
 				time.sleep(0.0001)
 				count += 1
-				if (count % 5000 == 0):
+				if (count % 500 == 0):
 					results.append(val)
 
 		print(results)
@@ -121,7 +122,7 @@ while(True):
 
 		
 		normResults = normalise(results)
-
+		print(normResults)
 		xVal = 0
 		for r in results:
 			adjR = r * (height - 8)
