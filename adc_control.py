@@ -82,9 +82,9 @@ papirus.display(image)
 papirus.update()
 
 GPIO.setmode(GPIO.BCM)
-GPIO.setup(RELAY_PIN, GPIO.IN) 
+GPIO.setup(RELAY_PIN, GPIO.OUT) 
 GPIO.output(RELAY_PIN, GPIO.LOW)
-
+GPIO.setup(RELAY_PIN, GPIO.IN) 
 while(True):
 
 	if GPIO.input(RELAY_PIN) == GPIO.HIGH:
