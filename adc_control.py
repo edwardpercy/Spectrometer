@@ -83,12 +83,12 @@ papirus.update()
 
 GPIO.setmode(GPIO.BCM)
 GPIO.setup(RELAY_PIN, GPIO.IN) 
-
+GPIO.output(RELAY_PIN, GPIO.LOW)
 
 while(True):
 
 	if GPIO.input(RELAY_PIN) == GPIO.HIGH:
-	
+		print("HIGH")
 		count = 0
 		results = []
 		draw.text((((width/2) - (6*11)),20), "Scanning ...", fill=BLACK, font = font)
@@ -107,6 +107,8 @@ while(True):
 
 	
 		papirus.clear()
+		papirus.update()
+
 		draw.text((((width/2) - (9*11)),8), "Spectral Results", fill=BLACK, font = font)
 
 		if (len(results) > width):
@@ -125,4 +127,4 @@ while(True):
 			xVal += 1
 
 		papirus.display(image)
-		papirus.update()
+		papirus.partial_update()
