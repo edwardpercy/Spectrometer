@@ -122,4 +122,4 @@ while(True):
 			xVal += 1
 
 		papirus.display(image)
-		papirus.update()`
+		papirus.update()
