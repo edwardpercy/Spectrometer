@@ -54,8 +54,9 @@ class StreamingMovingAverage:
 
 def normalise(input):
 	output = np.array(input, dtype=float)
-	if (len(output) > 100):
-		output = output/np.linalg.norm(output)
+	print (output[0])
+	output = output/np.linalg.norm(output)
+	print(output[0])
 	#output = moving_average(output, n=10)
 	return output
 
@@ -82,9 +83,8 @@ papirus.display(image)
 papirus.update()
 
 GPIO.setmode(GPIO.BCM)
-GPIO.setup(RELAY_PIN, GPIO.OUT) 
-GPIO.output(RELAY_PIN, GPIO.LOW)
 GPIO.setup(RELAY_PIN, GPIO.IN) 
+
 while(True):
 
 	if GPIO.input(RELAY_PIN) == GPIO.HIGH:
@@ -107,8 +107,9 @@ while(True):
 
 	
 		papirus.clear()
+		draw.rectangle((0, 0, width, height), fill=WHITE, outline=BLACK)
 		papirus.update()
-
+		
 		draw.text((((width/2) - (9*11)),8), "Spectral Results", fill=BLACK, font = font)
 
 		if (len(results) > width):
@@ -125,6 +126,6 @@ while(True):
 			adjR = r * (height - 8)
 			draw.rectangle((xVal,adjR,xVal+2,adjR+2), fill=BLACK, outline=BLACK)
 			xVal += 1
-
+		time.sleep(0.5)
 		papirus.display(image)
 		papirus.partial_update()
