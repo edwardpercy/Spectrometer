@@ -1,5 +1,4 @@
 #!/usr/bin/python
-from cv2 import norm
 import RPi.GPIO as GPIO
 import spidev
 import time
