@@ -58,13 +58,17 @@ class StreamingMovingAverage:
         return float(self.sum) / len(self.values)
 
 def normalise(input):
-	output = input
-	for x in range (len(input)):
-		output[x] = (input[x]-min(input))/(max(input)-min(input))
+    output = input
+    minVal = min(input)
+    maxVal = max(input)
+    
+    for x in range (len(input)):
+        output[x] = (input[x]-minVal) / (maxVal-minVal)
 	# output = output/np.linalg.norm(output)
 
 	#output = moving_average(output, n=10)
-	return output
+    return output
+    
 
 averageValue = StreamingMovingAverage(500)
 
