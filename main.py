@@ -1,6 +1,6 @@
 # System imports
 import RPi.GPIO as GPIO
-import os
+import subprocess, sys
 from time import sleep
 
 class StepperHandler():
@@ -72,7 +72,10 @@ stepperHandler = StepperHandler(STEP_PIN, DIRECTION_PIN, 0.01)
 
 stepperHandler.Step(100, stepperHandler.ANTI_CLOCKWISE)
 stepperHandler.home()
-os.startfile('adc_control.py')
+
+
+opener = "open" if sys.platform == "darwin" else "xdg-open"
+subprocess.call([opener, 'adc_control.py'])
 sleep(2)
 # Go backwards once
 GPIO.output(RELAY_PIN, GPIO.HIGH)
