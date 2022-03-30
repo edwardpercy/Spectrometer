@@ -70,11 +70,12 @@ stepperHandler.Step(100, stepperHandler.ANTI_CLOCKWISE)
 stepperHandler.home()
 
 os.system('./launch.sh')
+sleep(2)
 GPIO.setmode(GPIO.BCM)
 GPIO.setup(RELAY_PIN, GPIO.OUT)
 GPIO.output(RELAY_PIN, GPIO.LOW)
 
-sleep(1)
+
 # Go backwards once
 GPIO.output(RELAY_PIN, GPIO.HIGH)
 sleep(1)
