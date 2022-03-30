@@ -36,8 +36,8 @@ def normalise(input):
 #canal2 = normalise(fileToList('canalWater_USB2F035981__0__10.txt', False))
 
 #hal = normalise(fileToList('canalWater_USB2F035981__0__3.txt', True))
-red = normalise(fileToList('red.txt'))
-cuvette = normalise(fileToList('cuvette.txt'))
+red = normalise(fileToList('output.txt'))
+#cuvette = normalise(fileToList('cuvette.txt'))
 
 
 plt.xlabel('Wavelengths', fontsize = 15, style='italic')
@@ -47,7 +47,7 @@ ttl = plt.title('Spectrum of red dye and empty cuvette', fontsize = 20)
 
 
 plt.plot(red, color="red")
-plt.plot(cuvette, color="blue")
+#plt.plot(cuvette, color="blue")
 
 
 #plt.plot(wavelengths, red, color="red")
@@ -60,7 +60,7 @@ plt.plot(cuvette, color="blue")
 #plt.plot(wavelengths, canal, color="gold")
 #plt.plot(wavelengths, canal2, color="red")
 #plt.yscale('log')
-plt.legend(["Red Dye", "Cuvette"])
+#plt.legend(["Red Dye", "Cuvette"])
 #plt.xscale('log')
 #plt.gca().invert_xaxis()
 plt.grid('on')

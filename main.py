@@ -1,7 +1,7 @@
 # System imports
 import RPi.GPIO as GPIO
 import os
-from time import sleep
+
 import multiprocessing
 
 import spidev
@@ -117,9 +117,9 @@ class StepperHandler():
 			if (GPIO.input(self.SwitchPin) == GPIO.HIGH or direction == self.ANTI_CLOCKWISE):
 				GPIO.output(self.StepPin, GPIO.HIGH)
 				self.CurrentStep += 1
-				sleep(self.Delay)
+				time.sleep(self.Delay)
 				GPIO.output(self.StepPin, GPIO.LOW)
-				sleep(self.Delay)
+				time.sleep(self.Delay)
 			
 	def home(self, direction = __CLOCKWISE):
 	
@@ -132,9 +132,9 @@ class StepperHandler():
 		while (GPIO.input(self.SwitchPin) == GPIO.HIGH):
 			GPIO.output(self.StepPin, GPIO.HIGH)
 			self.CurrentStep += 1
-			sleep(self.Delay)
+			time.sleep(self.Delay)
 			GPIO.output(self.StepPin, GPIO.LOW)
-			sleep(self.Delay)
+			time.sleep(self.Delay)
 		stepperHandler.Step(10, stepperHandler.ANTI_CLOCKWISE)
 
 def stepper_routine():
@@ -182,6 +182,7 @@ def capture_routine():
 	
 	papirus.display(image)
 	papirus.partial_update()
+	time.sleep(20)
 
 GPIO.setmode(GPIO.BCM)
 GPIO.setup(RELAY_PIN, GPIO.OUT)
