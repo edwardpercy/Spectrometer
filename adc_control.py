@@ -102,7 +102,7 @@ while(True):
 				f.write(str(val) + "\n")
 				time.sleep(0.0001)
 				count += 1
-				if (count % 500 == 0):
+				if (count % 250 == 0):
 					results.append(val)
 
 	
@@ -117,15 +117,15 @@ while(True):
 				del results[-x]
 		elif (len(results) < width):
 			for x in range(width - len(results)):
-				results.append(0)
+				results.append(height/2)
 
 		
 		normResults = normalise(results)
 
 		xVal = 0
 		for r in normResults:
-			adjR = height- (r * (height - 8))
-			draw.rectangle((xVal,adjR,xVal+2,adjR+2), fill=BLACK, outline=BLACK)
+			adjR = height - (r * (height - 8))
+			draw.rectangle((xVal,adjR,xVal+1,adjR+1), fill=BLACK, outline=BLACK)
 			xVal += 1
 		
 		papirus.display(image)
