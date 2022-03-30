@@ -75,10 +75,10 @@ GPIO.setmode(GPIO.BCM)
 GPIO.setup(RELAY_PIN, GPIO.OUT)
 GPIO.output(RELAY_PIN, GPIO.LOW)
 
-
+sleep(6)
 # Go backwards once
 GPIO.output(RELAY_PIN, GPIO.HIGH)
-sleep(1)
+
 stepperHandler.Step(1300, stepperHandler.ANTI_CLOCKWISE)
 GPIO.output(RELAY_PIN, GPIO.LOW)
 
