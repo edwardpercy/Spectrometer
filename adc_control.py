@@ -103,23 +103,23 @@ while(True):
 					results.append(val)
 
 
-	papirus.clear()
-	draw.text((((width/2) - 9),8), "Spectral Results", fill=BLACK, font = font)
+		papirus.clear()
+		draw.text((((width/2) - 9),8), "Spectral Results", fill=BLACK, font = font)
 
-	if (len(results) > width):
-		for x in range(len(results) - width):
-			del[-x]
-	elif (len(results) < width):
-		for x in range(width - len(results)):
-			results.append(0)
+		if (len(results) > width):
+			for x in range(len(results) - width):
+				del[-x]
+		elif (len(results) < width):
+			for x in range(width - len(results)):
+				results.append(0)
 
-	normResults = normalise(results)
+		normResults = normalise(results)
 
-	xVal = 0
-	for r in results:
-		adjR = r * (height - 8)
-		draw.rectangle((xVal,adjR,xVal+2,adjR+2), fill=BLACK, outline=BLACK)
-		xVal += 1
+		xVal = 0
+		for r in results:
+			adjR = r * (height - 8)
+			draw.rectangle((xVal,adjR,xVal+2,adjR+2), fill=BLACK, outline=BLACK)
+			xVal += 1
 
-	papirus.display(image)
-	papirus.update()
+		papirus.display(image)
+		papirus.update()`
