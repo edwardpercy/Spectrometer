@@ -53,9 +53,10 @@ class StreamingMovingAverage:
         return float(self.sum) / len(self.values)
 
 def normalise(input):
-	output = np.array(input, dtype=float)
-
-	output = output/np.linalg.norm(output)
+	output = input
+	for x in range (len(input)):
+		output[x] = (input[x]-min(input))/(max(input)-min(input))
+	# output = output/np.linalg.norm(output)
 
 	#output = moving_average(output, n=10)
 	return output
@@ -124,7 +125,7 @@ while(True):
 
 		xVal = 0
 		for r in normResults:
-			adjR = (r * (height - 8))
+			adjR = height - (r * (height - 8))
 			draw.rectangle((xVal,adjR,xVal+1,adjR+1), fill=BLACK, outline=BLACK)
 			xVal += 1
 		
