@@ -118,14 +118,14 @@ while(True):
 				del results[-x]
 		elif (len(results) < width):
 			for x in range(width - len(results)):
-				results.append(height/2)
+				results.append(0)
 
 		
 		normResults = normalise(results)
 
 		xVal = 0
 		for r in normResults:
-			adjR = height - (r * (height - 8))
+			adjR = height - (r * (height - (11*8)))
 			draw.rectangle((xVal,adjR,xVal+1,adjR+1), fill=BLACK, outline=BLACK)
 			xVal += 1
 		
