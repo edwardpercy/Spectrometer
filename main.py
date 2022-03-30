@@ -73,7 +73,7 @@ stepperHandler = StepperHandler(STEP_PIN, DIRECTION_PIN, 0.01)
 stepperHandler.Step(100, stepperHandler.ANTI_CLOCKWISE)
 stepperHandler.home()
 
-os.system('./home/pi/Desktop/Spectrometer/launch.sh')
+os.system('./launch.sh')
 
 sleep(2)
 # Go backwards once
