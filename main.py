@@ -71,7 +71,7 @@ def normalise(input):
     return output
     
 
-averageValue = StreamingMovingAverage(200)
+averageValue = StreamingMovingAverage(300)
 sampleSpeed = 0.000001
 
 def readADC():
@@ -161,7 +161,7 @@ def capture_routine():
 			f.write(str(val) + "\n")
 			time.sleep(sampleSpeed)
 			count += 1
-			if (count % 1000 == 0):
+			if (count % 500 == 0):
 				results.append(val)
 
 
