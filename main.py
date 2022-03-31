@@ -145,8 +145,8 @@ class StepperHandler():
 def stepper_routine():
 	stepperHandler.Step(2600, stepperHandler.ANTI_CLOCKWISE)
 	GPIO.output(RELAY_PIN, GPIO.LOW)
-
-	stepperHandler.home()
+	stepperHandler.Step(2000, stepperHandler.CLOCKWISE)
+	#stepperHandler.home()
 
 
 def capture_routine():
