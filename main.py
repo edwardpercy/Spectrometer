@@ -143,7 +143,7 @@ class StepperHandler():
 		stepperHandler.Step(10, stepperHandler.ANTI_CLOCKWISE)
 
 def stepper_routine():
-	stepperHandler.Step(1300, stepperHandler.ANTI_CLOCKWISE)
+	stepperHandler.Step(5200, stepperHandler.ANTI_CLOCKWISE)
 	GPIO.output(RELAY_PIN, GPIO.LOW)
 	stepperHandler.home()
 
@@ -159,7 +159,7 @@ def capture_routine():
 			f.write(str(val) + "\n")
 			time.sleep(sampleSpeed)
 			count += 1
-			if (count % 250 == 0):
+			if (count % 1000 == 0):
 				results.append(val)
 
 
