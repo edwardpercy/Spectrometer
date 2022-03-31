@@ -36,10 +36,10 @@ def normalise(input):
 #canal2 = normalise(fileToList('canalWater_USB2F035981__0__10.txt', False))
 
 #hal = normalise(fileToList('canalWater_USB2F035981__0__3.txt', True))
-red = fileToList('0DarkRed.txt')
-blue = fileToList('0Blue.txt')
-green = fileToList('0Green.txt')
-#cuvette = normalise(fileToList('cuvette.txt'))
+red = fileToList('output.txt')
+# blue = fileToList('0Blue.txt')
+# green = fileToList('0Green.txt')
+# #cuvette = normalise(fileToList('cuvette.txt'))
 
 
 plt.xlabel('Wavelengths', fontsize = 15, style='italic')
@@ -49,9 +49,9 @@ ttl = plt.title('Spectrum of coloured dyes', fontsize = 20)
 
 
 plt.plot(red, color="red")
-plt.plot(blue, color="blue")
-plt.plot(green, color="green")
-#plt.plot(cuvette, color="blue")
+# plt.plot(blue, color="blue")
+# plt.plot(green, color="green")
+# #plt.plot(cuvette, color="blue")
 
 
 #plt.plot(wavelengths, red, color="red")
@@ -64,7 +64,7 @@ plt.plot(green, color="green")
 #plt.plot(wavelengths, canal, color="gold")
 #plt.plot(wavelengths, canal2, color="red")
 #plt.yscale('log')
-plt.legend(["Red", "Blue", "Green"])
+#plt.legend(["Red", "Blue", "Green"])
 #plt.xscale('log')
 #plt.gca().invert_xaxis()
 plt.grid('on')

@@ -30,6 +30,7 @@ font = ImageFont.truetype(FONT_FILE, font_size)
 draw = ImageDraw.Draw(image)
 # Lamp control
 RELAY_PIN = 6
+SPEED_PIN = 12
 
 bus = 0
 device = 1
@@ -70,7 +71,7 @@ def normalise(input):
     return output
     
 
-averageValue = StreamingMovingAverage(250)
+averageValue = StreamingMovingAverage(200)
 sampleSpeed = 0.000001
 
 def readADC():
@@ -143,8 +144,9 @@ class StepperHandler():
 		stepperHandler.Step(10, stepperHandler.ANTI_CLOCKWISE)
 
 def stepper_routine():
-	stepperHandler.Step(5200, stepperHandler.ANTI_CLOCKWISE)
+	stepperHandler.Step(2600, stepperHandler.ANTI_CLOCKWISE)
 	GPIO.output(RELAY_PIN, GPIO.LOW)
+	GPIO.output(SPEED_PIN, GPIO.LOW) #Full Speed
 	stepperHandler.home()
 
 
@@ -190,7 +192,9 @@ def capture_routine():
 
 GPIO.setmode(GPIO.BCM)
 GPIO.setup(RELAY_PIN, GPIO.OUT)
+GPIO.setup(SPEED_PIN, GPIO.OUT)
 GPIO.output(RELAY_PIN, GPIO.LOW)
+GPIO.output(SPEED_PIN, GPIO.HIGH) #Half Speed
 
 draw.text((((width/2) - (9*11)),0), "Photo Spectrometry", fill=BLACK, font = font)
 
