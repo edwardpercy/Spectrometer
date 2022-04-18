@@ -157,7 +157,7 @@ def capture_routine():
 
 	with open('output.txt', 'w') as f:
 		#time.sleep(1.3)
-		while(GPIO.input(RELAY_PIN) == GPIO.LOW):
+		while(GPIO.input(RELAY_PIN) == GPIO.HIGH):
 			val = readADC()
 			f.write(str(val) + "\n")
 			time.sleep(sampleSpeed)
