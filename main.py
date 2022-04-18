@@ -16,6 +16,7 @@ import numpy as np
 # Define pins
 STEP_PIN = 19
 DIRECTION_PIN = 13
+SLEEP_PIN = 12
 WHITE = 1
 BLACK = 0
 FONT_FILE = '/usr/share/fonts/truetype/freefont/FreeMonoBold.ttf'
@@ -144,8 +145,9 @@ class StepperHandler():
 
 def stepper_routine():
 	stepperHandler.Step(2600, stepperHandler.ANTI_CLOCKWISE)
-	GPIO.output(RELAY_PIN, GPIO.LOW)
+	GPIO.output(RELAY_PIN, GPIO.HIGH)
 	stepperHandler.Step(2000, stepperHandler.CLOCKWISE)
+	GPIO.output(SLEEP_PIN, GPIO.LOW)
 	#stepperHandler.home()
 
 
@@ -155,7 +157,7 @@ def capture_routine():
 
 	with open('output.txt', 'w') as f:
 		#time.sleep(1.3)
-		while(GPIO.input(RELAY_PIN) == GPIO.HIGH):
+		while(GPIO.input(RELAY_PIN) == GPIO.LOW):
 			val = readADC()
 			f.write(str(val) + "\n")
 			time.sleep(sampleSpeed)
@@ -191,7 +193,11 @@ def capture_routine():
 
 GPIO.setmode(GPIO.BCM)
 GPIO.setup(RELAY_PIN, GPIO.OUT)
-GPIO.output(RELAY_PIN, GPIO.LOW)
+GPIO.setup(SLEEP_PIN, GPIO.OUT)
+GPIO.output(RELAY_PIN, GPIO.HIGH)
+
+
+GPIO.output(SLEEP_PIN, GPIO.LOW)
 
 
 draw.text((((width/2) - (9*11)),0), "Photo Spectrometry", fill=BLACK, font = font)
@@ -199,6 +205,7 @@ draw.text((((width/2) - (9*11)),0), "Photo Spectrometry", fill=BLACK, font = fon
 papirus.display(image)
 papirus.update()
 
+GPIO.output(SLEEP_PIN, GPIO.HIGH)
 draw.text((((width/2) - (7*11)),20), "Homing Stepper", fill=BLACK, font = font)
 papirus.display(image)
 papirus.partial_update()
@@ -214,7 +221,7 @@ papirus.display(image)
 papirus.partial_update()
 
 # Go backwards once
-GPIO.output(RELAY_PIN, GPIO.HIGH)
+GPIO.output(RELAY_PIN, GPIO.LOW)
 
 captureProcess = multiprocessing.Process(target=capture_routine, args=())
 stepperProcess = multiprocessing.Process(target=stepper_routine, args=())
