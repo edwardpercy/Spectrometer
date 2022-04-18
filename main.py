@@ -145,7 +145,7 @@ class StepperHandler():
 
 def stepper_routine():
 	stepperHandler.Step(2600, stepperHandler.ANTI_CLOCKWISE)
-	GPIO.output(RELAY_PIN, GPIO.HIGH)
+	GPIO.output(RELAY_PIN, GPIO.LOW)
 	stepperHandler.Step(2000, stepperHandler.CLOCKWISE)
 	GPIO.output(SLEEP_PIN, GPIO.LOW)
 	#stepperHandler.home()
@@ -194,9 +194,7 @@ def capture_routine():
 GPIO.setmode(GPIO.BCM)
 GPIO.setup(RELAY_PIN, GPIO.OUT)
 GPIO.setup(SLEEP_PIN, GPIO.OUT)
-GPIO.output(RELAY_PIN, GPIO.HIGH)
-
-
+GPIO.output(RELAY_PIN, GPIO.LOW)
 GPIO.output(SLEEP_PIN, GPIO.LOW)
 
 
@@ -205,11 +203,11 @@ draw.text((((width/2) - (9*11)),0), "Photo Spectrometry", fill=BLACK, font = fon
 papirus.display(image)
 papirus.update()
 
-GPIO.output(SLEEP_PIN, GPIO.HIGH)
 draw.text((((width/2) - (7*11)),20), "Homing Stepper", fill=BLACK, font = font)
 papirus.display(image)
 papirus.partial_update()
 
+GPIO.output(SLEEP_PIN, GPIO.HIGH)
 # Create a new instance of our stepper class (note if you're just starting out with this you're probably better off using a delay of ~0.1)
 stepperHandler = StepperHandler(STEP_PIN, DIRECTION_PIN, 0.01)
 stepperHandler.Step(100, stepperHandler.ANTI_CLOCKWISE)
@@ -221,7 +219,7 @@ papirus.display(image)
 papirus.partial_update()
 
 # Go backwards once
-GPIO.output(RELAY_PIN, GPIO.LOW)
+GPIO.output(RELAY_PIN, GPIO.HIGH)
 
 captureProcess = multiprocessing.Process(target=capture_routine, args=())
 stepperProcess = multiprocessing.Process(target=stepper_routine, args=())
