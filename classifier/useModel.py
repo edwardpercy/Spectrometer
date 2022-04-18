@@ -40,8 +40,7 @@ data = data.astype(float)
 
 x_train, x_test, y_train, y_test = train_test_split(data, labels, test_size = 0.3, random_state = 4)
 
-print(type(x_test))
 # Predict
-y_pred = classifier.predict(data[0])
+y_pred = classifier.predict(data)
 
-print(y_pred)
+print(y_pred.data)
