@@ -17,4 +17,3 @@ except shutil.Error as e:
 except IOError as e:
    print("Error: %s" % e.strerror)
    
-!/usr/bin/env python
