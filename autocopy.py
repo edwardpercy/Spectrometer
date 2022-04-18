@@ -29,4 +29,4 @@ for i in df.split('\n'):
             dinfo = info.groupdict()
             dinfo['device'] = '/dev/bus/usb/%s/%s' % (dinfo.pop('bus'), dinfo.pop('device'))
             devices.append(dinfo)
-print devices
+print (devices)
