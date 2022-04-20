@@ -265,11 +265,15 @@ def write_text(papirus, text, size):
     papirus.partial_update()
 
 def menu():
-	
-    papirus.clear()
 
-    write_text(papirus, "Ready... SW1 + SW2 to exit.", SIZE)
+	papirus.clear()
 
+	draw.text((0,0), "Scan", fill=BLACK, font = font)
+	draw.text((44,0), "Data", fill=BLACK, font = font)
+	draw.text((88,0), "USB", fill=BLACK, font = font)
+	draw.text((121,0), "Options", fill=BLACK, font = font)
+	papirus.display(image)
+	papirus.update()
 
 
 GPIO.setmode(GPIO.BCM)
