@@ -206,7 +206,7 @@ def usb():
 	papirus.update()
 
 	context = Context()
-	monitor = Monitor.from_netlink()
+	monitor = Monitor.from_netlink(context)
 	# For USB devices
 	monitor.filter_by(susbsytem='usb')
 	# OR specifically for most USB serial devices
