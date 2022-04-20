@@ -1,7 +1,7 @@
 # System imports
 import RPi.GPIO as GPIO
 import os
-
+import pyudev
 import multiprocessing
 
 import spidev
@@ -196,6 +196,26 @@ def capture_routine():
 	
 	papirus.display(image)
 	papirus.update()
+
+def usb():
+	papirus.clear()
+	draw.rectangle((0, 0, width, height), fill=WHITE, outline=BLACK)
+	draw.text((((width/2) - (6*11)),0), "Insert USB Device.", fill=BLACK, font = font)
+
+	papirus.display(image)
+	papirus.update()
+
+	context = pyudev.Context()
+	monitor = Monitor.from_netlink()
+	# For USB devices
+	monitor.filter_by(susbsytem='usb')
+	# OR specifically for most USB serial devices
+	monitor.filter_by(susbystem='tty')
+	for action, device in monitor:
+		vendor_id = device.get('ID_VENDOR_ID')
+		# I know the devices I am looking for have a vendor ID of '22fa'
+		if vendor_id in ['22fa']:
+			print('Detected {} for device with vendor ID {}'.format(action, vendor_id))
 
 def scan():
 	papirus.clear()
