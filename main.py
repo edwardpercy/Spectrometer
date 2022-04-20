@@ -208,7 +208,7 @@ def usb():
 	context = Context()
 	monitor = Monitor.from_netlink(context)
 	# For USB devices
-	monitor.filter_by('usb')
+	monitor.filter_by('tty')
 	# OR specifically for most USB serial devices
 	#monitor.filter_by(susbystem='tty')
 	for action, device in monitor:
