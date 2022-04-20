@@ -287,7 +287,7 @@ def usb():
 
 	print (selDisk)
 
-	
+
 def scan():
 	papirus.clear()
 	draw.rectangle((0, 0, width, height), fill=WHITE, outline=BLACK)
@@ -440,7 +440,6 @@ GPIO.setup(SW3, GPIO.IN)
 GPIO.setup(SW4, GPIO.IN)
 
 stepperHandler = StepperHandler(STEP_PIN, DIRECTION_PIN, 0.01)
-usb()
 menu()
 
 
