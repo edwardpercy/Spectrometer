@@ -269,7 +269,7 @@ def menu():
 	papirus.clear()
 
 	draw.text((11,0), "Scan", fill=BLACK, font = font)
-	draw.rectangle((60, 0, 1, 20), fill=WHITE, outline=BLACK)
+	draw.rectangle((60, 0, 61, 20), fill=BLACK, outline=BLACK)
 	draw.text((66,0), "Data", fill=BLACK, font = font)
 	draw.text((121,0), "USB", fill=BLACK, font = font)
 	draw.text((165,0), "Options", fill=BLACK, font = font)
