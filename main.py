@@ -211,6 +211,8 @@ def usb():
 	print("CHECK")
 	# For USB devices
 	#monitor.filter_by('tty')
+	for d in monitor:
+		print (d)
 	# OR specifically for most USB serial devices
 	#monitor.filter_by(susbystem='tty')
 	for action, device in monitor:
