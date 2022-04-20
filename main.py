@@ -20,6 +20,12 @@ SLEEP_PIN = 12
 WHITE = 1
 BLACK = 0
 FONT_FILE = '/usr/share/fonts/truetype/freefont/FreeMonoBold.ttf'
+SW1 = 16
+SW2 = 26
+SW3 = 20
+SW4 = 21
+
+SIZE = 27
 
 papirus = Papirus(rotation = 0)
 papirus.clear()
@@ -190,43 +196,93 @@ def capture_routine():
 	papirus.display(image)
 	papirus.update()
 
+def scan():
+	draw.text((((width/2) - (9*11)),0), "Photo Spectrometry", fill=BLACK, font = font)
+
+	papirus.display(image)
+	papirus.update()
+
+	draw.text((((width/2) - (7*11)),20), "Homing Stepper", fill=BLACK, font = font)
+	papirus.display(image)
+	papirus.partial_update()
+
+	GPIO.output(SLEEP_PIN, GPIO.HIGH)
+	# Create a new instance of our stepper class (note if you're just starting out with this you're probably better off using a delay of ~0.1)
+	
+	stepperHandler.Step(100, stepperHandler.ANTI_CLOCKWISE)
+	stepperHandler.home()
+
+
+	draw.text((((width/2) - (6*11)),60), "Scanning ...", fill=BLACK, font = font)
+	papirus.display(image)
+	papirus.partial_update()
+
+	# Go backwards once
+	GPIO.output(RELAY_PIN, GPIO.HIGH)
+
+	captureProcess = multiprocessing.Process(target=capture_routine, args=())
+	stepperProcess = multiprocessing.Process(target=stepper_routine, args=())
+
+	captureProcess.start()
+	stepperProcess.start()
+
+	captureProcess.join()
+	stepperProcess.join()
+
+def write_text(papirus, text, size):
+
+    # initially set all white background
+    image = Image.new('1', papirus.size, WHITE)
+
+    # prepare for drawing
+    draw = ImageDraw.Draw(image)
+
+    font = ImageFont.truetype('/usr/share/fonts/truetype/freefont/FreeMonoBold.ttf', size)
+
+    # Calculate the max number of char to fit on line
+    line_size = (papirus.width / (size*0.65))
+
+    current_line = 0
+    text_lines = [""]
+
+    # Compute each line
+    for word in text.split():
+        # If there is space on line add the word to it
+        if (len(text_lines[current_line]) + len(word)) < line_size:
+            text_lines[current_line] += " " + word
+        else:
+            # No space left on line so move to next one
+            text_lines.append("")
+            current_line += 1
+            text_lines[current_line] += " " + word
+
+    current_line = 0
+    for l in text_lines:
+        current_line += 1
+        draw.text( (0, ((size*current_line)-size)) , l, font=font, fill=BLACK)
+
+    papirus.display(image)
+    papirus.partial_update()
+	
+def menu():
+	
+    papirus.clear()
+
+    write_text(papirus, "Ready... SW1 + SW2 to exit.", SIZE)
+
+
 
 GPIO.setmode(GPIO.BCM)
 GPIO.setup(RELAY_PIN, GPIO.OUT)
 GPIO.setup(SLEEP_PIN, GPIO.OUT)
 GPIO.output(RELAY_PIN, GPIO.LOW)
 GPIO.output(SLEEP_PIN, GPIO.LOW)
+GPIO.setup(SW1, GPIO.IN)
+GPIO.setup(SW2, GPIO.IN)
+GPIO.setup(SW3, GPIO.IN)
+GPIO.setup(SW4, GPIO.IN)
 
-
-draw.text((((width/2) - (9*11)),0), "Photo Spectrometry", fill=BLACK, font = font)
-
-papirus.display(image)
-papirus.update()
-
-draw.text((((width/2) - (7*11)),20), "Homing Stepper", fill=BLACK, font = font)
-papirus.display(image)
-papirus.partial_update()
-
-GPIO.output(SLEEP_PIN, GPIO.HIGH)
-# Create a new instance of our stepper class (note if you're just starting out with this you're probably better off using a delay of ~0.1)
 stepperHandler = StepperHandler(STEP_PIN, DIRECTION_PIN, 0.01)
-stepperHandler.Step(100, stepperHandler.ANTI_CLOCKWISE)
-stepperHandler.home()
 
 
-draw.text((((width/2) - (6*11)),60), "Scanning ...", fill=BLACK, font = font)
-papirus.display(image)
-papirus.partial_update()
-
-# Go backwards once
-GPIO.output(RELAY_PIN, GPIO.HIGH)
-
-captureProcess = multiprocessing.Process(target=capture_routine, args=())
-stepperProcess = multiprocessing.Process(target=stepper_routine, args=())
-
-captureProcess.start()
-stepperProcess.start()
-
-captureProcess.join()
-stepperProcess.join()
 
