@@ -346,6 +346,7 @@ def menu():
 			draw.text((121,0), "USB", fill=BLACK, font = font)
 			papirus.display(image)
 			papirus.partial_update()
+			usb()
 		if GPIO.input(SW4) == False:
 			draw.rectangle((161, 0, width, 20), fill=BLACK, outline=BLACK)
 			draw.rectangle((61, 0, 115, 20), fill=WHITE, outline=BLACK)
