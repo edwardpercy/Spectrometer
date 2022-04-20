@@ -110,11 +110,11 @@ class StepperHandler():
 		self.ANTI_CLOCKWISE = self.__ANTI_CLOCKWISE
 		self.StepPin = stepPin
 		self.SwitchPin = 5
-		sef.DirectionPin = directionPin
+		self.DirectionPin = directionPin
 		self.Delay = delay
 		self.RevolutionSteps = stepsPerRevolution
 		self.CurrentDirection = self.CLOCKWISE
-		sellf.CurrentStep = 0
+		self.CurrentStep = 0
 
 		# Setup gpio pins
 		GPIO.setmode(GPIO.BCM)
