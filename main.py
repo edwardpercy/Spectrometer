@@ -236,9 +236,12 @@ def usb():
 	draw.text((((width/2) - (5*11)),40), "Select USB", fill=BLACK, font = font)
 	count = 1
 	for d in disks:
-		draw.text((0,80), f"{count}: {d[0]}", fill=BLACK, font = font)
+		disktext = str(f"{count}: {d[0]}")
+		draw.text((0,80), disktext, fill=BLACK, font = font)
 		count += 1
 
+	papirus.display(image)
+	papirus.update()
 
 def scan():
 	papirus.clear()
