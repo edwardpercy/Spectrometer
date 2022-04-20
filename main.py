@@ -279,6 +279,22 @@ def menu():
 	papirus.display(image)
 	papirus.update()
 
+	while(GPIO.input(SW1) and GPIO.input(SW2) and GPIO.input(SW3) and GPIO.input(SW4) == False):
+		if GPIO.input(SW1) == False:
+			draw.rectangle((0, 0, 60, 20), fill=BLACK, outline=BLACK)
+
+		if GPIO.input(SW2) == False:
+			draw.rectangle((61, 0, 115, 20), fill=BLACK, outline=BLACK)
+
+		if GPIO.input(SW3) == False:
+			draw.rectangle((116, 0, 160, 20), fill=BLACK, outline=BLACK)
+
+		if GPIO.input(SW4) == False:
+			draw.rectangle((161, 0, width, 20), fill=BLACK, outline=BLACK)
+
+	papirus.display(image)
+	papirus.partial_update()
+
 
 GPIO.setmode(GPIO.BCM)
 GPIO.setup(RELAY_PIN, GPIO.OUT)
