@@ -206,22 +206,39 @@ def usb():
 	papirus.update()
 
 	disks = []
+	while(disks.empty() == True):
+		context = Context()
+		for device in context.list_devices(subsystem="block"):
+			if device.device_type == u"disk":
+				property_dict = dict(device.items())
 
-	context = Context()
-	for device in context.list_devices(subsystem="block"):
-		if device.device_type == u"disk":
-			property_dict = dict(device.items())
+				if ('ID_MODEL' in property_dict):
+					disk_short_name = property_dict.get('DEVNAME', "Unknown").split('/')[-1]
+					disks.append(
+					{
+						'model':	property_dict.get('ID_MODEL', "Unknown"),
+						'name':		disk_short_name,
+						'serial':	property_dict.get('ID_SERIAL_SHORT', "Unknown"),
+					})
 
-			if ('ID_MODEL' in property_dict):
-				disk_short_name = property_dict.get('DEVNAME', "Unknown").split('/')[-1]
-				disks.append(
-				{
-					'model':	property_dict.get('ID_MODEL', "Unknown"),
-					'name':		disk_short_name,
-					'serial':	property_dict.get('ID_SERIAL_SHORT', "Unknown"),
-				})
+	papirus.clear()
+	draw.rectangle((0, 0, width, height), fill=WHITE, outline=BLACK)
+	lenDisks = len(disks)
+	if (lenDisks >= 1) : draw.text((33,0), "1", fill=BLACK, font = font)
+	draw.rectangle((60, 0, 61, 20), fill=BLACK, outline=BLACK)
+	if (lenDisks >= 2) : draw.text((88,0), "2", fill=BLACK, font = font)
+	draw.rectangle((115, 0, 116, 20), fill=BLACK, outline=BLACK)
+	if (lenDisks >= 3) : draw.text((136,0), "3", fill=BLACK, font = font)
+	draw.rectangle((160, 0, 161, 20), fill=BLACK, outline=BLACK)
+	if (lenDisks >= 4) : draw.text((200,0), "4", fill=BLACK, font = font)
+	draw.rectangle((0, 20,width, height), fill=WHITE, outline=BLACK)
 
-	print (disks)
+	draw.text((((width/2) - (5*11)),40), "Select USB", fill=BLACK, font = font)
+	count = 1
+	for d in disks:
+		draw.text((0,80), f"{count}: {d[0]}", fill=BLACK, font = font)
+		count += 1
+
 
 def scan():
 	papirus.clear()
