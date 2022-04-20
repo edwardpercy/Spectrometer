@@ -294,7 +294,7 @@ def usb():
 	papirus.display(image)
 	papirus.partial_update()
 
-	os.system(f"sudo mount /dev/{selDisk} /media/usb") 
+	os.system(f"sudo mount /dev/{selDisk}1 /media/usb") 
 
 	draw.text((((width/2) - (5*11)),60), "Mounted...", fill=BLACK, font = font)
 	papirus.display(image)
