@@ -465,12 +465,13 @@ def data():
 
 	xVal = 0
 	for r in normResults:
-		adjR = ((height-40) - (r * (height-40))) + (40)
+		adjR = ((height-40) - (r * (height-40))) + (20)
 		draw.rectangle((xVal,adjR,xVal-1,adjR-1), fill=BLACK, outline=BLACK)
 		xVal += 1
 	
 	print(height)
 	print(width)
+	draw.rectangle((0, height-20,width, height-21), fill=BLACK, outline=BLACK)
 	draw.text((0,height-10), "300", fill=BLACK, font = smallFont)
 	draw.text((9*3,height-10), "400", fill=BLACK, font = smallFont)
 	draw.text((9*6,height-10), "500", fill=BLACK, font = smallFont)
