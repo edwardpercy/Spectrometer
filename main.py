@@ -275,7 +275,7 @@ def menu():
 	draw.text((121,0), "USB", fill=BLACK, font = font)
 	draw.rectangle((160, 0, 161, 20), fill=BLACK, outline=BLACK)
 	draw.text((165,0), "Options", fill=BLACK, font = font)
-	draw.rectangle((0, 20, 161, width), fill=BLACK, outline=BLACK)
+	draw.rectangle((0, 20,width, height), fill=BLACK, outline=BLACK)
 	papirus.display(image)
 	papirus.update()
 
