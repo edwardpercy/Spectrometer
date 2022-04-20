@@ -505,7 +505,7 @@ def menu():
 	draw.rectangle((160, 0, 161, 20), fill=BLACK, outline=BLACK)
 	draw.text((165,0), "Options", fill=BLACK, font = font)
 	draw.rectangle((0, 20,width, height), fill=BLACK, outline=BLACK)
-	image.paste(fileimg, (10, 20))
+	image.paste(fileimg, (40, 40))
 	papirus.display(image)
 	papirus.update()
 
@@ -565,8 +565,7 @@ GPIO.setup(SW1, GPIO.IN)
 GPIO.setup(SW2, GPIO.IN)
 GPIO.setup(SW3, GPIO.IN)
 GPIO.setup(SW4, GPIO.IN)
-print(width)
-print(height)
+
 stepperHandler = StepperHandler(STEP_PIN, DIRECTION_PIN, 0.01)
 loadPrevResults()
 menu()
