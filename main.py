@@ -205,21 +205,23 @@ def usb():
 	papirus.display(image)
 	papirus.update()
 
+	disks = []
+
 	context = Context()
-	monitor = Monitor.from_netlink(context)
-	print(monitor)
-	print("CHECK")
-	# For USB devices
-	#monitor.filter_by('tty')
-	for d in monitor:
-		print (d)
-	# OR specifically for most USB serial devices
-	#monitor.filter_by(susbystem='tty')
-	for action, device in monitor:
-		vendor_id = device.get('ID_VENDOR_ID')
-		# I know the devices I am looking for have a vendor ID of '22fa'
-		
-		print('Detected {} for device with vendor ID {}'.format(action, vendor_id))
+	for device in context.list_devices(subsystem="block"):
+		if device.device_type == u"disk":
+			property_dict = dict(device.items())
+
+			if ('ID_MODEL' in property_dict):
+				disk_short_name = property_dict.get('DEVNAME', "Unknown").split('/')[-1]
+				disks.append(
+				{
+					'model':	property_dict.get('ID_MODEL', "Unknown"),
+					'name':		disk_short_name,
+					'serial':	property_dict.get('ID_SERIAL_SHORT', "Unknown"),
+				})
+
+	print (disks)
 
 def scan():
 	papirus.clear()
