@@ -214,8 +214,8 @@ def usb():
 	for action, device in monitor:
 		vendor_id = device.get('ID_VENDOR_ID')
 		# I know the devices I am looking for have a vendor ID of '22fa'
-		if vendor_id in ['22fa']:
-			print('Detected {} for device with vendor ID {}'.format(action, vendor_id))
+		
+		print('Detected {} for device with vendor ID {}'.format(action, vendor_id))
 
 def scan():
 	papirus.clear()
