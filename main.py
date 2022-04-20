@@ -494,7 +494,7 @@ def data():
 	papirus.update()
 
 def menu():
-
+	fileimg = Image.open("homepic.bmp")
 	papirus.clear()
 	draw.rectangle((0, 0, width, height), fill=WHITE, outline=BLACK)
 	draw.text((11,0), "Scan", fill=BLACK, font = font)
@@ -505,6 +505,7 @@ def menu():
 	draw.rectangle((160, 0, 161, 20), fill=BLACK, outline=BLACK)
 	draw.text((165,0), "Options", fill=BLACK, font = font)
 	draw.rectangle((0, 20,width, height), fill=BLACK, outline=BLACK)
+	image.paste(fileimg, (10, 20))
 	papirus.display(image)
 	papirus.update()
 
