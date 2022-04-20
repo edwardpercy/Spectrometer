@@ -35,7 +35,7 @@ image = Image.new('1', papirus.size, WHITE)
 width,height = image.size
 font_size = int((width - 4)/(8*1.65))
 font = ImageFont.truetype(FONT_FILE, font_size)
-smallFont = ImageFont.truetype(FONT_FILE, int((width - 4)/(10*1.65)))
+smallFont = ImageFont.truetype(FONT_FILE, int((width - 4)/(12*1.65)))
 globalResults = []
 draw = ImageDraw.Draw(image)
 
@@ -470,15 +470,15 @@ def data():
 		xVal += 1
 	
 	print(height)
-	draw.text((0,height-20), "300", fill=BLACK, font = smallFont)
-	draw.text((11*3,height-20), "400", fill=BLACK, font = smallFont)
-	draw.text((11*6,height-20), "500", fill=BLACK, font = smallFont)
-	draw.text((11*9,height-20), "600", fill=BLACK, font = smallFont)
-	draw.text((11*12,height-20), "700", fill=BLACK, font = smallFont)
-	draw.text((11*15,height-20), "800", fill=BLACK, font = smallFont)
-	draw.text((11*18,height-20), "900", fill=BLACK, font = smallFont)
-	draw.text((11*22,height-20), "1000", fill=BLACK, font = smallFont)
-	draw.text((11*26,height-20), "1100", fill=BLACK, font = smallFont)
+	draw.text((0,height-10), "300", fill=BLACK, font = smallFont)
+	draw.text((9*3,height-10), "400", fill=BLACK, font = smallFont)
+	draw.text((9*6,height-10), "500", fill=BLACK, font = smallFont)
+	draw.text((9*9,height-10), "600", fill=BLACK, font = smallFont)
+	draw.text((9*12,height-10), "700", fill=BLACK, font = smallFont)
+	draw.text((9*15,height-10), "800", fill=BLACK, font = smallFont)
+	draw.text((9*18,height-10), "900", fill=BLACK, font = smallFont)
+	draw.text((9*21,height-10), "1000", fill=BLACK, font = smallFont)
+	draw.text((9*25,height-10), "1100", fill=BLACK, font = smallFont)
 
 
 
