@@ -441,7 +441,6 @@ def write_text(papirus, text, size):
 def data():
 	global globalResults
 
-	print(globalResults)
 	papirus.clear()
 	draw.rectangle((0, 0, width, height), fill=WHITE, outline=BLACK)
 	draw.text((11,0), "Exit", fill=BLACK, font = font)
