@@ -27,6 +27,7 @@ SW4 = 16
 
 SIZE = 27
 
+processLock = False
 papirus = Papirus(rotation = 0)
 papirus.clear()
 image = Image.new('1', papirus.size, WHITE)
@@ -197,6 +198,7 @@ def capture_routine():
 	papirus.update()
 
 def scan():
+	papirus.clear()
 	draw.text((((width/2) - (9*11)),0), "Photo Spectrometry", fill=BLACK, font = font)
 
 	papirus.display(image)
@@ -222,12 +224,29 @@ def scan():
 
 	captureProcess = multiprocessing.Process(target=capture_routine, args=())
 	stepperProcess = multiprocessing.Process(target=stepper_routine, args=())
-
+	processLock == True
 	captureProcess.start()
 	stepperProcess.start()
 
 	captureProcess.join()
 	stepperProcess.join()
+
+	while (True):
+		if (processLock == False):
+			papirus.clear()
+			draw.text((11,0), "Scan", fill=BLACK, font = font)
+			draw.rectangle((60, 0, 61, 20), fill=BLACK, outline=BLACK)
+			draw.text((66,0), "Data", fill=BLACK, font = font)
+			draw.rectangle((115, 0, 116, 20), fill=BLACK, outline=BLACK)
+			draw.text((121,0), "USB", fill=BLACK, font = font)
+			draw.rectangle((160, 0, 161, 20), fill=BLACK, outline=BLACK)
+			draw.text((165,0), "Options", fill=BLACK, font = font)
+			draw.rectangle((0, 20,width, height), fill=BLACK, outline=BLACK)
+			papirus.display(image)
+			papirus.update()
+			break
+		
+	
 
 def write_text(papirus, text, size):
 
@@ -282,49 +301,34 @@ def menu():
 	while(True):
 		if GPIO.input(SW1) == False:
 			draw.rectangle((0, 0, 60, 20), fill=BLACK, outline=BLACK)
-			
+			draw.text((11,0), "Scan", fill=BLACK, font = font)
 			draw.rectangle((61, 0, 115, 20), fill=WHITE, outline=BLACK)
 			draw.rectangle((116, 0, 160, 20), fill=WHITE, outline=BLACK)
 			draw.rectangle((161, 0, width, 20), fill=WHITE, outline=BLACK)
-			draw.text((11,0), "Scan", fill=BLACK, font = font)
-			draw.text((66,0), "Data", fill=BLACK, font = font)
-			draw.text((121,0), "USB", fill=BLACK, font = font)
-			draw.text((165,0), "Options", fill=BLACK, font = font)
 			papirus.display(image)
 			papirus.partial_update()
+			scan()
 		if GPIO.input(SW2) == False:
 			draw.rectangle((61, 0, 115, 20), fill=BLACK, outline=BLACK)
-
 			draw.rectangle((0, 0, 60, 20), fill=WHITE, outline=BLACK)
 			draw.rectangle((116, 0, 160, 20), fill=WHITE, outline=BLACK)
 			draw.rectangle((161, 0, width, 20), fill=WHITE, outline=BLACK)
-			draw.text((11,0), "Scan", fill=BLACK, font = font)
 			draw.text((66,0), "Data", fill=BLACK, font = font)
-			draw.text((121,0), "USB", fill=BLACK, font = font)
-			draw.text((165,0), "Options", fill=BLACK, font = font)
 			papirus.display(image)
 			papirus.partial_update()
 		if GPIO.input(SW3) == False:
 			draw.rectangle((116, 0, 160, 20), fill=BLACK, outline=BLACK)
-
 			draw.rectangle((61, 0, 115, 20), fill=WHITE, outline=BLACK)
 			draw.rectangle((0, 0, 60, 20), fill=WHITE, outline=BLACK)
 			draw.rectangle((161, 0, width, 20), fill=WHITE, outline=BLACK)
-			draw.text((11,0), "Scan", fill=BLACK, font = font)
-			draw.text((66,0), "Data", fill=BLACK, font = font)
 			draw.text((121,0), "USB", fill=BLACK, font = font)
-			draw.text((165,0), "Options", fill=BLACK, font = font)
 			papirus.display(image)
 			papirus.partial_update()
 		if GPIO.input(SW4) == False:
 			draw.rectangle((161, 0, width, 20), fill=BLACK, outline=BLACK)
-
 			draw.rectangle((61, 0, 115, 20), fill=WHITE, outline=BLACK)
 			draw.rectangle((116, 0, 160, 20), fill=WHITE, outline=BLACK)
 			draw.rectangle((0, 0, 60, 20), fill=WHITE, outline=BLACK)
-			draw.text((11,0), "Scan", fill=BLACK, font = font)
-			draw.text((66,0), "Data", fill=BLACK, font = font)
-			draw.text((121,0), "USB", fill=BLACK, font = font)
 			draw.text((165,0), "Options", fill=BLACK, font = font)
 			papirus.display(image)
 			papirus.partial_update()
