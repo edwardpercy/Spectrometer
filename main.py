@@ -236,15 +236,58 @@ def usb():
 	draw.text((((width/2) - (5*11)),40), "Select USB", fill=BLACK, font = font)
 	count = 1
 	for d in disks:
-		print(d["model"])
-		print(len(d))
 		disktext = str(f"{str(count)}: {str(d['model'])}")
 		draw.text((0,80), disktext, fill=BLACK, font = font)
 		count += 1
 
 	papirus.display(image)
 	papirus.update()
+	selDisk = ""
+	while(True):
+		if GPIO.input(SW1) == False and (lenDisks >= 1):
+			draw.rectangle((0, 0, 60, 20), fill=BLACK, outline=BLACK)
+			draw.text((33,0), "1", fill=BLACK, font = font)
+			draw.rectangle((61, 0, 115, 20), fill=WHITE, outline=BLACK)
+			draw.rectangle((116, 0, 160, 20), fill=WHITE, outline=BLACK)
+			draw.rectangle((161, 0, width, 20), fill=WHITE, outline=BLACK)
+			selDisk = disks[0]['name']
+			papirus.display(image)
+			papirus.partial_update()
+			break
+		elif GPIO.input(SW2) == False and (lenDisks >= 2):
+			draw.rectangle((61, 0, 115, 20), fill=BLACK, outline=BLACK)
+			draw.rectangle((0, 0, 60, 20), fill=WHITE, outline=BLACK)
+			draw.rectangle((116, 0, 160, 20), fill=WHITE, outline=BLACK)
+			draw.rectangle((161, 0, width, 20), fill=WHITE, outline=BLACK)
+			draw.text((88,0), "2", fill=BLACK, font = font)
+			selDisk = disks[1]['name']
+			papirus.display(image)
+			papirus.partial_update()
+			break
+		elif GPIO.input(SW3) == False and (lenDisks >= 3):
+			draw.rectangle((116, 0, 160, 20), fill=BLACK, outline=BLACK)
+			draw.rectangle((61, 0, 115, 20), fill=WHITE, outline=BLACK)
+			draw.rectangle((0, 0, 60, 20), fill=WHITE, outline=BLACK)
+			draw.rectangle((161, 0, width, 20), fill=WHITE, outline=BLACK)
+			draw.text((136,0), "3", fill=BLACK, font = font)
+			selDisk = disks[2]['name']
+			papirus.display(image)
+			papirus.partial_update()
+			break
+		elif GPIO.input(SW4) == False and (lenDisks >= 4):
+			draw.rectangle((161, 0, width, 20), fill=BLACK, outline=BLACK)
+			draw.rectangle((61, 0, 115, 20), fill=WHITE, outline=BLACK)
+			draw.rectangle((116, 0, 160, 20), fill=WHITE, outline=BLACK)
+			draw.rectangle((0, 0, 60, 20), fill=WHITE, outline=BLACK)
+			draw.text((200,0), "4", fill=BLACK, font = font)
+			selDisk = disks[3]['name']
+			papirus.display(image)
+			papirus.partial_update()
+			break
 
+	print (selDisk)
+
+	
 def scan():
 	papirus.clear()
 	draw.rectangle((0, 0, width, height), fill=WHITE, outline=BLACK)
