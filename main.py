@@ -206,7 +206,7 @@ def usb():
 	papirus.update()
 
 	disks = []
-	while(disks.empty() == True):
+	while(len(disks) <= 0):
 		context = Context()
 		for device in context.list_devices(subsystem="block"):
 			if device.device_type == u"disk":
