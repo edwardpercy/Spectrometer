@@ -1,7 +1,7 @@
 # System imports
 import RPi.GPIO as GPIO
 import os
-import pyudev
+from pyudev import Context, Monitor
 import multiprocessing
 
 import spidev
@@ -205,8 +205,8 @@ def usb():
 	papirus.display(image)
 	papirus.update()
 
-	context = pyudev.Context()
-	monitor = pyudev.Monitor.from_netlink()
+	context = Context()
+	monitor = Monitor.from_netlink()
 	# For USB devices
 	monitor.filter_by(susbsytem='usb')
 	# OR specifically for most USB serial devices
