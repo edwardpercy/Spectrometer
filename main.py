@@ -35,7 +35,7 @@ image = Image.new('1', papirus.size, WHITE)
 width,height = image.size
 font_size = int((width - 4)/(8*1.65))
 font = ImageFont.truetype(FONT_FILE, font_size)
-
+globalResults = []
 draw = ImageDraw.Draw(image)
 # Lamp control
 RELAY_PIN = 6
@@ -160,6 +160,7 @@ def stepper_routine():
 
 
 def capture_routine():
+	global globalResults
 	count = 0
 	results = []
 
@@ -173,6 +174,7 @@ def capture_routine():
 			if (count % 500 == 0):
 				results.append(val)
 
+	globalResults = results
 
 	papirus.clear()
 	draw.rectangle((0, 0, width, height), fill=WHITE, outline=BLACK)
@@ -436,6 +438,61 @@ def write_text(papirus, text, size):
     papirus.display(image)
     papirus.partial_update()
 
+def data():
+	global globalResults
+	papirus.clear()
+	draw.rectangle((0, 0, width, height), fill=WHITE, outline=BLACK)
+	draw.text((11,0), "Exit", fill=BLACK, font = font)
+	draw.rectangle((60, 0, 61, 20), fill=BLACK, outline=BLACK)
+	draw.rectangle((115, 0, 116, 20), fill=BLACK, outline=BLACK)
+	draw.rectangle((160, 0, 161, 20), fill=BLACK, outline=BLACK)
+	draw.rectangle((0, 20,width, height), fill=BLACK, outline=BLACK)
+	
+	draw.text((((width/2) - (9*11)),8), "Spectral Results", fill=BLACK, font = font)
+
+	if (len(globalResults) > width):
+		for x in range(len(globalResults) - width):
+			del globalResults[-x]
+	elif (len(globalResults) < width):
+		for x in range(width - len(globalResults)):
+			globalResults.append(0)
+	
+	normResults = normalise(globalResults)
+
+	xVal = 0
+	for r in normResults:
+		adjR = ((height-40) - (r * (height-40))) + (40)
+		draw.rectangle((xVal,adjR,xVal-1,adjR-1), fill=BLACK, outline=BLACK)
+		xVal += 1
+	
+
+	papirus.display(image)
+	papirus.update()
+
+	while(True):
+		if GPIO.input(SW1) == False:
+			draw.rectangle((0, 0, 60, 20), fill=BLACK, outline=BLACK)
+			draw.text((11,0), "Exit", fill=BLACK, font = font)
+			draw.rectangle((61, 0, 115, 20), fill=WHITE, outline=BLACK)
+			draw.rectangle((116, 0, 160, 20), fill=WHITE, outline=BLACK)
+			draw.rectangle((161, 0, width, 20), fill=WHITE, outline=BLACK)
+			papirus.display(image)
+			papirus.partial_update()
+			break
+
+	papirus.clear()
+	draw.rectangle((0, 0, width, height), fill=WHITE, outline=BLACK)
+	draw.text((11,0), "Scan", fill=BLACK, font = font)
+	draw.rectangle((60, 0, 61, 20), fill=BLACK, outline=BLACK)
+	draw.text((66,0), "Data", fill=BLACK, font = font)
+	draw.rectangle((115, 0, 116, 20), fill=BLACK, outline=BLACK)
+	draw.text((121,0), "USB", fill=BLACK, font = font)
+	draw.rectangle((160, 0, 161, 20), fill=BLACK, outline=BLACK)
+	draw.text((165,0), "Options", fill=BLACK, font = font)
+	draw.rectangle((0, 20,width, height), fill=BLACK, outline=BLACK)
+	papirus.display(image)
+	papirus.update()
+
 def menu():
 
 	papirus.clear()
@@ -469,6 +526,7 @@ def menu():
 			draw.text((66,0), "Data", fill=BLACK, font = font)
 			papirus.display(image)
 			papirus.partial_update()
+			data()
 		if GPIO.input(SW3) == False:
 			draw.rectangle((116, 0, 160, 20), fill=BLACK, outline=BLACK)
 			draw.rectangle((61, 0, 115, 20), fill=WHITE, outline=BLACK)
@@ -486,8 +544,14 @@ def menu():
 			draw.text((165,0), "Options", fill=BLACK, font = font)
 			papirus.display(image)
 			papirus.partial_update()
-	
 
+def loadPrevResults():
+	global globalResults
+	with open('output.txt') as f:
+		outLines = f.readlines()
+
+	for line in outLines:
+		globalResults.append(float(line))
 
 GPIO.setmode(GPIO.BCM)
 GPIO.setup(RELAY_PIN, GPIO.OUT)
