@@ -263,7 +263,7 @@ def write_text(papirus, text, size):
 
     papirus.display(image)
     papirus.partial_update()
-	
+
 def menu():
 	
     papirus.clear()
@@ -284,5 +284,6 @@ GPIO.setup(SW4, GPIO.IN)
 
 stepperHandler = StepperHandler(STEP_PIN, DIRECTION_PIN, 0.01)
 
+menu()
 
 
