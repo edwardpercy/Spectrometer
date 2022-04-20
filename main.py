@@ -279,7 +279,7 @@ def menu():
 	papirus.display(image)
 	papirus.update()
 
-	while(GPIO.input(SW1) and GPIO.input(SW2) and GPIO.input(SW3) and GPIO.input(SW4) == False):
+	while(GPIO.input(SW1) and GPIO.input(SW2) and GPIO.input(SW3) and GPIO.input(SW4) == True):
 		if GPIO.input(SW1) == False:
 			draw.rectangle((0, 0, 60, 20), fill=BLACK, outline=BLACK)
 
