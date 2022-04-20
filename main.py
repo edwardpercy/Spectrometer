@@ -285,8 +285,21 @@ def usb():
 			papirus.partial_update()
 			break
 
-	print (selDisk)
+	papirus.clear()
+	draw.rectangle((0, 0, width, height), fill=WHITE, outline=BLACK)
+	papirus.display(image)
+	papirus.update()
 
+	draw.text((((width/2) - (6*11)),20), "Mounting USB", fill=BLACK, font = font)
+	papirus.display(image)
+	papirus.partial_update()
+
+	os.system(f"sudo mount /dev/{selDisk} /media/usb") 
+
+	draw.text((((width/2) - (5*11)),60), "Mounted...", fill=BLACK, font = font)
+	papirus.display(image)
+	papirus.partial_update()
+	os.system("sudo umount /media/usb")
 
 def scan():
 	papirus.clear()
