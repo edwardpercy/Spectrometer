@@ -312,7 +312,7 @@ def usb():
 
 	try:
 		# Copy file to destination
-		shutil.copy2(source, destination)
+		shutil.copyfile(source, destination)
 		# E.g. source and destination is the same location
 	except shutil.Error as e:
 		print("Error: %s" % e)
