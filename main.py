@@ -446,11 +446,10 @@ def data():
 	draw.rectangle((0, 0, width, height), fill=WHITE, outline=BLACK)
 	draw.text((11,0), "Exit", fill=BLACK, font = font)
 	draw.rectangle((60, 0, 61, 20), fill=BLACK, outline=BLACK)
-	draw.rectangle((115, 0, 116, 20), fill=BLACK, outline=BLACK)
-	draw.rectangle((160, 0, 161, 20), fill=BLACK, outline=BLACK)
-	draw.rectangle((0, 20,width, height), fill=BLACK, outline=BLACK)
+
+
 	
-	draw.text((((width/2) - (9*11)),8), "Spectral Results", fill=BLACK, font = font)
+	draw.text((((width/2) - (6*11)),0), "Spectral Results", fill=BLACK, font = font)
 
 	if (len(globalResults) > width):
 		for x in range(len(globalResults) - width):
