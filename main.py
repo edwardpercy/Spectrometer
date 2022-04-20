@@ -282,19 +282,37 @@ def menu():
 	while(True):
 		if GPIO.input(SW1) == False:
 			draw.rectangle((0, 0, 60, 20), fill=BLACK, outline=BLACK)
-			break
+
+			draw.rectangle((61, 0, 115, 20), fill=WHITE, outline=BLACK)
+			draw.rectangle((116, 0, 160, 20), fill=WHITE, outline=BLACK)
+			draw.rectangle((161, 0, width, 20), fill=WHITE, outline=BLACK)
+			papirus.display(image)
+			papirus.partial_update()
 		if GPIO.input(SW2) == False:
 			draw.rectangle((61, 0, 115, 20), fill=BLACK, outline=BLACK)
-			break
+
+			draw.rectangle((0, 0, 60, 20), fill=WHITE, outline=BLACK)
+			draw.rectangle((116, 0, 160, 20), fill=WHITE, outline=BLACK)
+			draw.rectangle((161, 0, width, 20), fill=WHITE, outline=BLACK)
+			papirus.display(image)
+			papirus.partial_update()
 		if GPIO.input(SW3) == False:
 			draw.rectangle((116, 0, 160, 20), fill=BLACK, outline=BLACK)
-			break
+
+			draw.rectangle((61, 0, 115, 20), fill=WHITE, outline=BLACK)
+			draw.rectangle((0, 0, 60, 20), fill=WHITE, outline=BLACK)
+			draw.rectangle((161, 0, width, 20), fill=WHITE, outline=BLACK)
+			papirus.display(image)
+			papirus.partial_update()
 		if GPIO.input(SW4) == False:
 			draw.rectangle((161, 0, width, 20), fill=BLACK, outline=BLACK)
-			break
 
-	papirus.display(image)
-	papirus.partial_update()
+			draw.rectangle((61, 0, 115, 20), fill=WHITE, outline=BLACK)
+			draw.rectangle((116, 0, 160, 20), fill=WHITE, outline=BLACK)
+			draw.rectangle((0, 0, 60, 20), fill=WHITE, outline=BLACK)
+			papirus.display(image)
+			papirus.partial_update()
+	
 
 
 GPIO.setmode(GPIO.BCM)
