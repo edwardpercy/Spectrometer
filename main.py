@@ -236,7 +236,7 @@ def usb():
 	draw.text((((width/2) - (5*11)),40), "Select USB", fill=BLACK, font = font)
 	count = 1
 	for d in disks:
-		disktext = str(f"{count}: {d[0]}")
+		disktext = str(f"{str(count)}: {str(d[0])}")
 		draw.text((0,80), disktext, fill=BLACK, font = font)
 		count += 1
 
