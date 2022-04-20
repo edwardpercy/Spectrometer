@@ -35,6 +35,7 @@ image = Image.new('1', papirus.size, WHITE)
 width,height = image.size
 font_size = int((width - 4)/(8*1.65))
 font = ImageFont.truetype(FONT_FILE, font_size)
+smallFont = ImageFont.truetype(FONT_FILE, int((width - 4)/(10*1.65)))
 globalResults = []
 draw = ImageDraw.Draw(image)
 
@@ -109,11 +110,11 @@ class StepperHandler():
 		self.ANTI_CLOCKWISE = self.__ANTI_CLOCKWISE
 		self.StepPin = stepPin
 		self.SwitchPin = 5
-		self.DirectionPin = directionPin
+		sef.DirectionPin = directionPin
 		self.Delay = delay
 		self.RevolutionSteps = stepsPerRevolution
 		self.CurrentDirection = self.CLOCKWISE
-		self.CurrentStep = 0
+		sellf.CurrentStep = 0
 
 		# Setup gpio pins
 		GPIO.setmode(GPIO.BCM)
@@ -468,6 +469,18 @@ def data():
 		draw.rectangle((xVal,adjR,xVal-1,adjR-1), fill=BLACK, outline=BLACK)
 		xVal += 1
 	
+	print(height)
+	draw.text((0,height-20), "300", fill=BLACK, font = smallFont)
+	draw.text((11*3,height-20), "400", fill=BLACK, font = smallFont)
+	draw.text((11*6,height-20), "500", fill=BLACK, font = smallFont)
+	draw.text((11*9,height-20), "600", fill=BLACK, font = smallFont)
+	draw.text((11*12,height-20), "700", fill=BLACK, font = smallFont)
+	draw.text((11*15,height-20), "800", fill=BLACK, font = smallFont)
+	draw.text((11*18,height-20), "900", fill=BLACK, font = smallFont)
+	draw.text((11*22,height-20), "1000", fill=BLACK, font = smallFont)
+	draw.text((11*26,height-20), "1100", fill=BLACK, font = smallFont)
+
+
 
 	papirus.display(image)
 	papirus.update()
