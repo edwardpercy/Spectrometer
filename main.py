@@ -564,6 +564,7 @@ GPIO.setup(SW3, GPIO.IN)
 GPIO.setup(SW4, GPIO.IN)
 
 stepperHandler = StepperHandler(STEP_PIN, DIRECTION_PIN, 0.01)
+loadPrevResults()
 menu()
 
 
