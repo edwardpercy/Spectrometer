@@ -37,8 +37,9 @@ font_size = int((width - 4)/(8*1.65))
 font = ImageFont.truetype(FONT_FILE, font_size)
 globalResults = []
 draw = ImageDraw.Draw(image)
-# Lamp control
-RELAY_PIN = 6
+
+fileimg = Image.open("homepic.bmp")
+RELAY_PIN = 6 # Lamp control
 
 bus = 0
 device = 1
@@ -346,6 +347,7 @@ def usb():
 	draw.rectangle((160, 0, 161, 20), fill=BLACK, outline=BLACK)
 	draw.text((165,0), "Options", fill=BLACK, font = font)
 	draw.rectangle((0, 20,width, height), fill=BLACK, outline=BLACK)
+	image.paste(fileimg, (15, 40))
 	papirus.display(image)
 	papirus.update()
 
@@ -397,6 +399,7 @@ def scan():
 			draw.rectangle((160, 0, 161, 20), fill=BLACK, outline=BLACK)
 			draw.text((165,0), "Options", fill=BLACK, font = font)
 			draw.rectangle((0, 20,width, height), fill=BLACK, outline=BLACK)
+			image.paste(fileimg, (15, 40))
 			papirus.display(image)
 			papirus.update()
 			break
@@ -490,11 +493,12 @@ def data():
 	draw.rectangle((160, 0, 161, 20), fill=BLACK, outline=BLACK)
 	draw.text((165,0), "Options", fill=BLACK, font = font)
 	draw.rectangle((0, 20,width, height), fill=BLACK, outline=BLACK)
+	image.paste(fileimg, (15, 40))
 	papirus.display(image)
 	papirus.update()
 
 def menu():
-	fileimg = Image.open("homepic.bmp")
+	
 	papirus.clear()
 	draw.rectangle((0, 0, width, height), fill=WHITE, outline=BLACK)
 	draw.text((11,0), "Scan", fill=BLACK, font = font)
@@ -505,7 +509,7 @@ def menu():
 	draw.rectangle((160, 0, 161, 20), fill=BLACK, outline=BLACK)
 	draw.text((165,0), "Options", fill=BLACK, font = font)
 	draw.rectangle((0, 20,width, height), fill=BLACK, outline=BLACK)
-	image.paste(fileimg, (25, 40))
+	image.paste(fileimg, (15, 40))
 	papirus.display(image)
 	papirus.update()
 
