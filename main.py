@@ -236,10 +236,10 @@ def usb():
 	draw.text((((width/2) - (5*11)),40), "Select USB", fill=BLACK, font = font)
 	count = 1
 	for d in disks:
-		print(d)
+		print(d[0])
 		print(len(d))
-		disktext = str(f"{str(count)}: {str(d[0])}")
-		draw.text((0,80), disktext, fill=BLACK, font = font)
+		# disktext = str(f"{str(count)}: {str(d[0])}")
+		# draw.text((0,80), disktext, fill=BLACK, font = font)
 		count += 1
 
 	papirus.display(image)
@@ -397,7 +397,7 @@ GPIO.setup(SW3, GPIO.IN)
 GPIO.setup(SW4, GPIO.IN)
 
 stepperHandler = StepperHandler(STEP_PIN, DIRECTION_PIN, 0.01)
-
+usb()
 menu()
 
 
