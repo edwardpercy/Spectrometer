@@ -208,9 +208,9 @@ def usb():
 	context = Context()
 	monitor = Monitor.from_netlink(context)
 	# For USB devices
-	monitor.filter_by(susbsytem='usb')
+	monitor.filter_by('usb')
 	# OR specifically for most USB serial devices
-	monitor.filter_by(susbystem='tty')
+	#monitor.filter_by(susbystem='tty')
 	for action, device in monitor:
 		vendor_id = device.get('ID_VENDOR_ID')
 		# I know the devices I am looking for have a vendor ID of '22fa'
