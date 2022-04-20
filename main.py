@@ -333,6 +333,19 @@ def usb():
 	draw.text((((width/2) - (7*11)),145), "Safe to Eject.", fill=BLACK, font = font)
 	papirus.display(image)
 	papirus.partial_update()
+	time.sleep(1)
+	papirus.clear()
+	draw.rectangle((0, 0, width, height), fill=WHITE, outline=BLACK)
+	draw.text((11,0), "Scan", fill=BLACK, font = font)
+	draw.rectangle((60, 0, 61, 20), fill=BLACK, outline=BLACK)
+	draw.text((66,0), "Data", fill=BLACK, font = font)
+	draw.rectangle((115, 0, 116, 20), fill=BLACK, outline=BLACK)
+	draw.text((121,0), "USB", fill=BLACK, font = font)
+	draw.rectangle((160, 0, 161, 20), fill=BLACK, outline=BLACK)
+	draw.text((165,0), "Options", fill=BLACK, font = font)
+	draw.rectangle((0, 20,width, height), fill=BLACK, outline=BLACK)
+	papirus.display(image)
+	papirus.update()
 
 
 def scan():
