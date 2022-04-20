@@ -470,6 +470,7 @@ def data():
 		xVal += 1
 	
 	print(height)
+	print(width)
 	draw.text((0,height-10), "300", fill=BLACK, font = smallFont)
 	draw.text((9*3,height-10), "400", fill=BLACK, font = smallFont)
 	draw.text((9*6,height-10), "500", fill=BLACK, font = smallFont)
