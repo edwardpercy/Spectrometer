@@ -399,7 +399,7 @@ def scan():
 			draw.rectangle((160, 0, 161, 20), fill=BLACK, outline=BLACK)
 			draw.text((165,0), "Options", fill=BLACK, font = font)
 			draw.rectangle((0, 20,width, height), fill=BLACK, outline=BLACK)
-			image.paste(fileimg, (25, 40))
+			image.paste(fileimg, (35, 40))
 			papirus.display(image)
 			papirus.update()
 			break
@@ -493,7 +493,7 @@ def data():
 	draw.rectangle((160, 0, 161, 20), fill=BLACK, outline=BLACK)
 	draw.text((165,0), "Options", fill=BLACK, font = font)
 	draw.rectangle((0, 20,width, height), fill=BLACK, outline=BLACK)
-	image.paste(fileimg, (25, 40))
+	image.paste(fileimg, (35, 40))
 	papirus.display(image)
 	papirus.update()
 
