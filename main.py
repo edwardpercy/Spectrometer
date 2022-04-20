@@ -20,10 +20,10 @@ SLEEP_PIN = 12
 WHITE = 1
 BLACK = 0
 FONT_FILE = '/usr/share/fonts/truetype/freefont/FreeMonoBold.ttf'
-SW1 = 16
-SW2 = 26
-SW3 = 20
-SW4 = 21
+SW1 = 21
+SW2 = 20
+SW3 = 26
+SW4 = 16
 
 SIZE = 27
 
@@ -281,20 +281,16 @@ def menu():
 
 	while(True):
 		if GPIO.input(SW1) == False:
-			draw.rectangle((161, 0, width, 20), fill=BLACK, outline=BLACK)
-			print("1")
+			draw.rectangle((0, 0, 60, 20), fill=BLACK, outline=BLACK)
 			break
 		if GPIO.input(SW2) == False:
-			draw.rectangle((116, 0, 160, 20), fill=BLACK, outline=BLACK)
-			print("2")
+			draw.rectangle((61, 0, 115, 20), fill=BLACK, outline=BLACK)
 			break
 		if GPIO.input(SW3) == False:
-			draw.rectangle((61, 0, 115, 20), fill=BLACK, outline=BLACK)
-			print("3")
+			draw.rectangle((116, 0, 160, 20), fill=BLACK, outline=BLACK)
 			break
 		if GPIO.input(SW4) == False:
-			draw.rectangle((0, 0, 60, 20), fill=BLACK, outline=BLACK)
-			print("4")
+			draw.rectangle((161, 0, width, 20), fill=BLACK, outline=BLACK)
 			break
 
 	papirus.display(image)
