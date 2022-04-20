@@ -199,6 +199,7 @@ def capture_routine():
 
 def scan():
 	papirus.clear()
+	draw.rectangle((0, 0, width, height), fill=WHITE, outline=BLACK)
 	draw.text((((width/2) - (9*11)),0), "Photo Spectrometry", fill=BLACK, font = font)
 
 	papirus.display(image)
@@ -234,6 +235,7 @@ def scan():
 	while (True):
 		if (processLock == False):
 			papirus.clear()
+			draw.rectangle((0, 0, width, height), fill=WHITE, outline=BLACK)
 			draw.text((11,0), "Scan", fill=BLACK, font = font)
 			draw.rectangle((60, 0, 61, 20), fill=BLACK, outline=BLACK)
 			draw.text((66,0), "Data", fill=BLACK, font = font)
@@ -286,7 +288,7 @@ def write_text(papirus, text, size):
 def menu():
 
 	papirus.clear()
-
+	draw.rectangle((0, 0, width, height), fill=WHITE, outline=BLACK)
 	draw.text((11,0), "Scan", fill=BLACK, font = font)
 	draw.rectangle((60, 0, 61, 20), fill=BLACK, outline=BLACK)
 	draw.text((66,0), "Data", fill=BLACK, font = font)
