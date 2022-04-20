@@ -3,7 +3,8 @@ import RPi.GPIO as GPIO
 import os
 from pyudev import Context, Monitor
 import multiprocessing
-
+import shutil
+import datetime
 import spidev
 import time
 import struct
@@ -295,11 +296,44 @@ def usb():
 	papirus.partial_update()
 
 	os.system(f"sudo mount /dev/{selDisk}1 /media/usb") 
-
-	draw.text((((width/2) - (5*11)),60), "Mounted...", fill=BLACK, font = font)
+	draw.text((((width/2) - (5*11)),45), "Mounted...", fill=BLACK, font = font)
 	papirus.display(image)
 	papirus.partial_update()
+
+	draw.text((((width/2) - (10*11)),70), "Writing data to USB.", fill=BLACK, font = font)
+	papirus.display(image)
+	papirus.partial_update()
+
+	# File to be copied
+	source = "/home/pi/Desktop/Spectrometer/output.txt"
+
+	# USB name must be changed to 'USB1' in order for auto copy to work
+	destination = "/media/usb/datalogger_backup_%s.txt" % datetime.datetime.now().date()
+
+	try:
+		# Copy file to destination
+		shutil.copy2(source, destination)
+		# E.g. source and destination is the same location
+	except shutil.Error as e:
+		print("Error: %s" % e)
+		# E.g. source or destination does not exist
+	except IOError as e:
+		print("Error: %s" % e.strerror)
+
+	draw.text((((width/2) - (4*11)),95), "Success.", fill=BLACK, font = font)
+	papirus.display(image)
+	papirus.partial_update()
+
+	draw.text((((width/2) - (8*11)),120), "Un-Mounting USB.", fill=BLACK, font = font)
+	papirus.display(image)
+	papirus.partial_update()
+
 	os.system("sudo umount /media/usb")
+
+	draw.text((((width/2) - (7*11)),145), "Safe to Eject.", fill=BLACK, font = font)
+	papirus.display(image)
+	papirus.partial_update()
+
 
 def scan():
 	papirus.clear()
