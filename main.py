@@ -551,9 +551,11 @@ def loadPrevResults():
 	global globalResults
 	with open('output.txt') as f:
 		outLines = f.readlines()
-
+	count = 0
 	for line in outLines:
-		globalResults.append(float(line))
+		if (count % 500 == 0):
+			globalResults.append(float(line))
+		count += 1
 
 GPIO.setmode(GPIO.BCM)
 GPIO.setup(RELAY_PIN, GPIO.OUT)
