@@ -236,10 +236,10 @@ def usb():
 	draw.text((((width/2) - (5*11)),40), "Select USB", fill=BLACK, font = font)
 	count = 1
 	for d in disks:
-		print(d[0])
+		print(d["model"])
 		print(len(d))
-		# disktext = str(f"{str(count)}: {str(d[0])}")
-		# draw.text((0,80), disktext, fill=BLACK, font = font)
+		disktext = str(f"{str(count)}: {str(d['model'])}")
+		draw.text((0,80), disktext, fill=BLACK, font = font)
 		count += 1
 
 	papirus.display(image)
