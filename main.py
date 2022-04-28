@@ -525,7 +525,6 @@ def data():
 			temp.append(globalResults[res])
 		count+=1
 
-	globalResults = temp
 
 	papirus.clear()
 	draw.rectangle((0, 0, width, height), fill=WHITE, outline=BLACK)
@@ -536,14 +535,14 @@ def data():
 	
 	draw.text((((width/2) - (6*11)),0), "Spectral Results", fill=BLACK, font = font)
 
-	if (len(globalResults) > width):
-		for x in range(len(globalResults) - width):
-			del globalResults[-x]
-	elif (len(globalResults) < width):
-		for x in range(width - len(globalResults)):
-			globalResults.append(0)
+	if (len(temp) > width):
+		for x in range(len(temp) - width):
+			del temp[-x]
+	elif (len(temp) < width):
+		for x in range(width - len(temp)):
+			temp.append(0)
 	
-	normResults = normalise(globalResults)
+	normResults = normalise(temp)
 
 	xVal = 0
 	for r in normResults:
@@ -566,7 +565,7 @@ def data():
 	draw.rectangle((9*17, height-10,(9*17)+1, height-15), fill=BLACK, outline=BLACK)
 	draw.text((9*18,height-10), "1000", fill=BLACK, font = smallFont)
 	draw.rectangle((9*20, height-10,(9*20)+1, height-15), fill=BLACK, outline=BLACK)
-	draw.text((9*21,height-10), "1100", fill=BLACK, font = smallFont)
+	draw.text((9*23,height-10), "1100", fill=BLACK, font = smallFont)
 	draw.rectangle((9*24, height-10,(9*24)+1, height-15), fill=BLACK, outline=BLACK)
 
 	
