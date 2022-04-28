@@ -228,7 +228,7 @@ def capture_routine():
 
 	data = read_text_file("output.txt")
 	y_pred = classifier.predict(data)
-	y_pred = int(y_pred.data[0])
+	y_pred = int(y_pred.data[0]) - 1
 	print(y_pred)
 	vals = ["Blue", "Canal", "Distilled", "Green","Red"]
 	print(vals[y_pred])
@@ -524,7 +524,7 @@ def data():
 		if (count % 500 == 0):
 			temp.append(globalResults[res])
 		count+=1
-		
+
 	globalResults = temp
 
 	papirus.clear()
