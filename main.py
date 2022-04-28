@@ -234,7 +234,7 @@ def capture_routine():
 	print(vals[y_pred])
 
 
-	draw.text((((width/2) - (9*11)),20), vals[y_pred], fill=BLACK, font = font)
+	draw.text((((width/2) - (9*11)),30), vals[y_pred], fill=BLACK, font = font)
 	draw.text((((width/2) - (9*11)),8), "Spectral Results", fill=BLACK, font = font)
 
 	if (len(results) > width):
@@ -517,6 +517,16 @@ def write_text(papirus, text, size):
 def data():
 	global globalResults
 	loadPrevResults()
+
+	temp = []
+	count = 0
+	for res in range(len(globalResults)):
+		if (count % 500 == 0):
+			temp.append(globalResults[res])
+		count+=1
+		
+	globalResults = temp
+
 	papirus.clear()
 	draw.rectangle((0, 0, width, height), fill=WHITE, outline=BLACK)
 	draw.text((11,0), "Exit", fill=BLACK, font = font)
@@ -542,23 +552,23 @@ def data():
 		xVal += 1
 	
 	draw.rectangle((0, height-12,width, height-13), fill=BLACK, outline=BLACK)
-	draw.text((0,height-10), "300", fill=BLACK, font = smallFont)
+	draw.text((0,height-10), "400", fill=BLACK, font = smallFont)
 	draw.rectangle((9*2, height-10,(9*2)+1, height-15), fill=BLACK, outline=BLACK)
-	draw.text((9*3,height-10), "400", fill=BLACK, font = smallFont)
+	draw.text((9*3,height-10), "500", fill=BLACK, font = smallFont)
 	draw.rectangle((9*5, height-10,(9*5)+1, height-15), fill=BLACK, outline=BLACK)
-	draw.text((9*6,height-10), "500", fill=BLACK, font = smallFont)
+	draw.text((9*6,height-10), "600", fill=BLACK, font = smallFont)
 	draw.rectangle((9*8, height-10,(9*8)+1, height-15), fill=BLACK, outline=BLACK)
-	draw.text((9*9,height-10), "600", fill=BLACK, font = smallFont)
+	draw.text((9*9,height-10), "700", fill=BLACK, font = smallFont)
 	draw.rectangle((9*11, height-10,(9*11)+1, height-15), fill=BLACK, outline=BLACK)
-	draw.text((9*12,height-10), "700", fill=BLACK, font = smallFont)
+	draw.text((9*12,height-10), "800", fill=BLACK, font = smallFont)
 	draw.rectangle((9*14, height-10,(9*14)+1, height-15), fill=BLACK, outline=BLACK)
-	draw.text((9*15,height-10), "800", fill=BLACK, font = smallFont)
+	draw.text((9*15,height-10), "900", fill=BLACK, font = smallFont)
 	draw.rectangle((9*17, height-10,(9*17)+1, height-15), fill=BLACK, outline=BLACK)
-	draw.text((9*18,height-10), "900", fill=BLACK, font = smallFont)
+	draw.text((9*18,height-10), "1000", fill=BLACK, font = smallFont)
 	draw.rectangle((9*20, height-10,(9*20)+1, height-15), fill=BLACK, outline=BLACK)
-	draw.text((9*21,height-10), "1000", fill=BLACK, font = smallFont)
+	draw.text((9*21,height-10), "1100", fill=BLACK, font = smallFont)
 	draw.rectangle((9*24, height-10,(9*24)+1, height-15), fill=BLACK, outline=BLACK)
-	draw.text((9*25,height-10), "1100", fill=BLACK, font = smallFont)
+
 	
 
 
