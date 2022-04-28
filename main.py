@@ -14,6 +14,10 @@ from PIL import ImageDraw
 from PIL import ImageFont
 import numpy as np
 
+#To save model
+from joblib import dump, load
+import os
+
 # Define pins
 STEP_PIN = 19
 DIRECTION_PIN = 13
@@ -53,6 +57,7 @@ spi.mode = 0b11
 result = 0.0
 cnt = 0
 
+classifier = load('spectro_model.joblib') 
 
 
 class StreamingMovingAverage:
@@ -160,9 +165,47 @@ def stepper_routine():
 	GPIO.output(SLEEP_PIN, GPIO.LOW)
 	#stepperHandler.home()
 
+def read_text_file(file_path):
+    with open(file_path, 'r') as f:
+        temp = []
+        for line in f:
+            temp.append(float(line))
+        x = temp
+    
+    Datalen = len(x)
+ 
+    combLength = Datalen - 141999
+    combDist = (Datalen / combLength)
+
+    for t in range (combLength-1, 0,-1):
+        x.pop(round(t * combDist))
+       
+    
+    x = normalise(x)
+    print("Data normalised")  
+
+    x = np.array(x)
+    x = x.astype(float)
+
+    return x
+        
+
+        
+def normalise(input):
+    output = input
+    count = 0
+    minval = min(input)
+    maxval = max(input)
+    for x in range (len(input)):
+        count += 1
+        output[x] = (input[x]-minval)/(maxval-minval)
+ 
+    return output
 
 def capture_routine():
 	global globalResults
+
+	
 	count = 0
 	results = []
 
@@ -176,12 +219,22 @@ def capture_routine():
 			if (count % 500 == 0):
 				results.append(val)
 
-	globalResults = results
+
 
 	papirus.clear()
 	draw.rectangle((0, 0, width, height), fill=WHITE, outline=BLACK)
 	papirus.update()
-	
+
+
+	data = read_text_file("output.txt")
+	y_pred = classifier.predict(data)
+	y_pred = int(y_pred.data[0])
+	print(y_pred)
+	vals = ["Blue", "Canal", "Distilled", "Green","Red"]
+	print(vals[y_pred])
+
+
+	draw.text((((width/2) - (9*11)),20), vals[y_pred], fill=BLACK, font = font)
 	draw.text((((width/2) - (9*11)),8), "Spectral Results", fill=BLACK, font = font)
 
 	if (len(results) > width):
@@ -463,7 +516,7 @@ def write_text(papirus, text, size):
 
 def data():
 	global globalResults
-
+	loadPrevResults()
 	papirus.clear()
 	draw.rectangle((0, 0, width, height), fill=WHITE, outline=BLACK)
 	draw.text((11,0), "Exit", fill=BLACK, font = font)

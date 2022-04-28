@@ -1,46 +1,65 @@
+
 import numpy as np
-from sklearn.model_selection import train_test_split
 
-# Import BinaryRelevance from skmultilearn
-from skmultilearn.problem_transform import BinaryRelevance
-
-# Import SVC classifier from sklearn
-from sklearn.svm import SVC
 
 #To save model
 from joblib import dump, load
+import os
 
-classifier = load('model.joblib') 
+classifier = load('spectro_model.joblib') 
 
-data = []
-labels = []
+  
+# Read text File
 
-with open('output.txt') as f:
-    lines = f.readlines()
-    for l in lines:
-        data.append(l.split(','))
+def read_text_file(file_path):
+    with open(file_path, 'r') as f:
+        temp = []
+        for line in f:
+            temp.append(float(line))
+        x = temp
+    
+    Datalen = len(x)
+ 
+    combLength = Datalen - 141999
+    combDist = (Datalen / combLength)
 
-with open('outputLabels.txt') as f:
-    lines = f.readlines()
-    for l in lines:
-        labels.append(l)
+    for t in range (combLength-1, 0,-1):
+        x.pop(round(t * combDist))
+       
+    
+    x = normalise(x)
+    print("Data normalised")  
 
+    x = np.array(x)
+    x = x.astype(float)
 
-for x in range(len(data)):
-    for y in range(len(data[x])):
-        data[x][y] = data[x][y].strip()
-        if data[x][y] == "":
-            del data[x][y]
+    return x
         
-labels = np.array(labels)
-labels = labels.astype(int)
 
-data = np.array(data)
-data = data.astype(float)
+        
+def normalise(input):
+    output = input
+    count = 0
+    minval = min(input)
+    maxval = max(input)
+    for x in range (len(input)):
+        count += 1
+        output[x] = (input[x]-minval)/(maxval-minval)
+ 
+    return output
+  
 
-x_train, x_test, y_train, y_test = train_test_split(data, labels, test_size = 0.3, random_state = 4)
+path = "C:/Users/Edward/Documents/Spectrometer/classifier/Spectro_Data"
+file = "4r(9).txt"
 
-# Predict
+file_path = f"{path}/{file}"
+data = read_text_file(file_path)
+
+
+
 y_pred = classifier.predict(data)
+print(y_pred.data[0])
 
-print(y_pred.data)
+
+#blue canal distilled green red
+#  1    2       3       4    5
