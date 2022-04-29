@@ -50,7 +50,7 @@ def normalise(input):
   
 
 path = "C:/Users/Edward/Documents/Spectrometer/classifier/Spectro_Data"
-file = "4r(9).txt"
+file = "00.txt"
 
 file_path = f"{path}/{file}"
 data = read_text_file(file_path)
