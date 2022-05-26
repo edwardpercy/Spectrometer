@@ -3,6 +3,13 @@ from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import normalize
 import matplotlib.pyplot as plt
 # Import BinaryRelevance from skmultilearn
+import matplotlib.pyplot as plt
+from mpl_toolkits.mplot3d import Axes3D
+import plotly.express as px
+
+
+from sklearn import decomposition
+from sklearn import datasets
 from skmultilearn.problem_transform import BinaryRelevance
 
 # Import SVC classifier from sklearn
@@ -42,26 +49,39 @@ n_samples = len(x_train)
 n_features = len(x_test)
 
 
-# Setup the classifier
-classifier = BinaryRelevance(classifier=SVC(), require_dense=[False,True])
+df = px.data.iris()
+print (df.shape())
 
-# Train
-classifier.fit(x_train, y_train)
+# features = ["sepal_width", "sepal_length", "petal_width", "petal_length"]
 
-# Predict
-y_pred = classifier.predict(x_test)
+# fig = px.scatter_matrix(
+#     df,
+#     dimensions=features,
+#     color="species"
+# )
+# fig.update_traces(diagonal_visible=False)
+# fig.show()
+
+# # Setup the classifier
+# classifier = BinaryRelevance(classifier=SVC(), require_dense=[False,True])
+
+# # Train
+# classifier.fit(x_train, y_train)
+
+# # Predict
+# y_pred = classifier.predict(x_test)
 
 
-total = 0
-for x in range(len(y_test)):
-    try:
-        if int(str(y_pred[x]).split(')')[1].strip()) == int(y_test[x]):
-            total += 1
-    except:
-        pass
+# total = 0
+# for x in range(len(y_test)):
+#     try:
+#         if int(str(y_pred[x]).split(')')[1].strip()) == int(y_test[x]):
+#             total += 1
+#     except:
+#         pass
 
 
-print(f"{total} / {len(y_test)}")
-print((total / len(y_test)) * 100)
+# print(f"{total} / {len(y_test)}")
+# print((total / len(y_test)) * 100)
 
-dump(classifier, 'model.joblib') 
+# dump(classifier, 'model.joblib') 

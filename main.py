@@ -515,14 +515,14 @@ def write_text(papirus, text, size):
     papirus.partial_update()
 
 def data():
-	global globalResults
-	loadPrevResults()
+	
+	pastResults = loadPrevResults()
 
 	temp = []
 	count = 0
-	for res in range(len(globalResults)):
+	for res in range(len(pastResults)):
 		if (count % 500 == 0):
-			temp.append(globalResults[res])
+			temp.append(pastResults[res])
 		count+=1
 
 
@@ -662,6 +662,8 @@ def loadPrevResults():
 		if (count % 500 == 0):
 			globalResults.append(float(line))
 		count += 1
+
+	return globalResults
 
 GPIO.setmode(GPIO.BCM)
 GPIO.setup(RELAY_PIN, GPIO.OUT)
